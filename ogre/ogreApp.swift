@@ -6,12 +6,31 @@
 //
 
 import SwiftUI
+import FirebaseCore
+
+
+// Initialize Firebase
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}
+
 
 @main
-struct ogreApp: App {
+struct OGRE_PrototypeApp: App {
+    
+    // Initialize Firebase
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
+    init() {
+        
+    }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainMenuView()
         }
     }
 }

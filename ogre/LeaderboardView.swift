@@ -1,8 +1,18 @@
 //
 //  LeaderboardView.swift
-//  ogre
+//  OGRE Prototype
 //
-//  Created by Aaron Grizzle on 10/14/23.
+//  Created by Brian Johnson on 10/11/23.
 //
 
-import Foundation
+import SwiftUI
+
+struct LeaderboardView: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    }
+}
+
+#Preview {
+    LeaderboardView()
+}
