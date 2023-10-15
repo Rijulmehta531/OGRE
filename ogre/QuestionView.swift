@@ -18,7 +18,7 @@ struct QuestionView: View {
                 .accentColor(.purple)
                 
                 
-            Image("Image")
+//            Image("Image")
             Spacer()
         }
         Spacer()

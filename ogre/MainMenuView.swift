@@ -6,6 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
+import GoogleSignIn
+import GoogleSignInSwift
 
 let name = "Rao"
 
@@ -39,6 +44,12 @@ struct MainMenuView: View {
                         Text("Settings Under Construction")
                     } else if selectedTab == Tab.person {
                         Text("Profile Under Construction")
+//                        VStack {
+//                            Button(action: {}) {
+//                                Text("Sign In with Google")
+//                            }
+//                            .buttonStyle(.bordered)
+//                        }
                     } else {
                         Text("Leaderboard Under Construction")
                     }
