@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8FB198A32ADB8A04008695A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FB198A22ADB8A04008695A0 /* GoogleService-Info.plist */; };
 		8FF245E52ADB810F009B8952 /* ogreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF245E42ADB810F009B8952 /* ogreApp.swift */; };
 		8FF245E72ADB810F009B8952 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF245E62ADB810F009B8952 /* MainMenuView.swift */; };
 		8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FF245E82ADB8111009B8952 /* Assets.xcassets */; };
@@ -15,7 +16,6 @@
 		8FF245F82ADB83CB009B8952 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF245F72ADB83CB009B8952 /* FirebaseAnalyticsSwift */; };
 		8FF246062ADB83CB009B8952 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF246052ADB83CB009B8952 /* FirebaseDatabase */; };
 		8FF246082ADB83CB009B8952 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF246072ADB83CB009B8952 /* FirebaseDatabaseSwift */; };
-		8FF2462A2ADB844D009B8952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF246292ADB844D009B8952 /* GoogleService-Info.plist */; };
 		8FF2462C2ADB84B9009B8952 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2462B2ADB84B9009B8952 /* LeaderboardView.swift */; };
 		8FF2462E2ADB84C8009B8952 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2462D2ADB84C8009B8952 /* ProfileView.swift */; };
 		8FF246302ADB84D4009B8952 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2462F2ADB84D4009B8952 /* QuestionView.swift */; };
@@ -26,12 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8FB198A22ADB8A04008695A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FF245E12ADB810F009B8952 /* ogre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ogre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF245E42ADB810F009B8952 /* ogreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ogreApp.swift; sourceTree = "<group>"; };
 		8FF245E62ADB810F009B8952 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		8FF245E82ADB8111009B8952 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FF245EB2ADB8111009B8952 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8FF246292ADB844D009B8952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../OGRE/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FF2462B2ADB84B9009B8952 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		8FF2462D2ADB84C8009B8952 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8FF2462F2ADB84D4009B8952 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				8FF245E32ADB810F009B8952 /* ogre */,
-				8FF246292ADB844D009B8952 /* GoogleService-Info.plist */,
+				8FB198A22ADB8A04008695A0 /* GoogleService-Info.plist */,
 				8FF245E22ADB810F009B8952 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -183,8 +183,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF245EC2ADB8111009B8952 /* Preview Assets.xcassets in Resources */,
+				8FB198A32ADB8A04008695A0 /* GoogleService-Info.plist in Resources */,
 				8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */,
-				8FF2462A2ADB844D009B8952 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
