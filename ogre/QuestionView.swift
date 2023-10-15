@@ -29,7 +29,7 @@ struct QuestionView: View {
             VStack {
                 Spacer()
                 ForEach(questionData.answers, id: \.self) { answer in
-                    AnswerButtonView(answer: answer)
+                    AnswerButton(answer: answer)
                     
                 }
                 

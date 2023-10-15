@@ -31,6 +31,7 @@ struct OGRE_PrototypeApp: App {
     var body: some Scene {
         WindowGroup {
             MainMenuView()
+                .environment(\.font, Font.custom("Optima", size: 14))
         }
     }
 }

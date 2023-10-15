@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnswerButtonView: View {
+struct AnswerButton: View {
     let answer: String
     var body: some View {
         HStack() {
@@ -25,5 +25,5 @@ struct AnswerButtonView: View {
 }
 
 #Preview {
-    AnswerButtonView(answer: QuestionData.sampleQuestions[0].answers[0])
+    AnswerButton(answer: QuestionData.sampleQuestions[0].answers[0])
 }
