@@ -109,7 +109,7 @@ struct MainMenuView: View {
         }
         
         
-        
+        .navigationBarHidden(true)
     }
     
     

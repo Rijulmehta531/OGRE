@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8FB198A32ADB8A04008695A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FB198A22ADB8A04008695A0 /* GoogleService-Info.plist */; };
 		8FF245E52ADB810F009B8952 /* ogreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF245E42ADB810F009B8952 /* ogreApp.swift */; };
 		8FF245E72ADB810F009B8952 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF245E62ADB810F009B8952 /* MainMenuView.swift */; };
 		8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FF245E82ADB8111009B8952 /* Assets.xcassets */; };
@@ -23,10 +22,13 @@
 		8FF246362ADB8511009B8952 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF246352ADB8511009B8952 /* TabBar.swift */; };
 		8FF246382ADB8526009B8952 /* AnswerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF246372ADB8526009B8952 /* AnswerButtonView.swift */; };
 		8FF2463A2ADB8536009B8952 /* QuestionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF246392ADB8536009B8952 /* QuestionData.swift */; };
+		BC2123DC2ADB9743002584D8 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2123DB2ADB9743002584D8 /* OnboardingView.swift */; };
+		BC5D96ED2ADBF89E009CF03A /* InitiQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5D96EC2ADBF89E009CF03A /* InitiQuesView.swift */; };
+		BC5D96F22ADBFA98009CF03A /* AnswerInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5D96F12ADBFA98009CF03A /* AnswerInit.swift */; };
+		BCDABB0F2ADB918C00525BBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCDABB0E2ADB918C00525BBB /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8FB198A22ADB8A04008695A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FF245E12ADB810F009B8952 /* ogre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ogre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF245E42ADB810F009B8952 /* ogreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ogreApp.swift; sourceTree = "<group>"; };
 		8FF245E62ADB810F009B8952 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
@@ -39,6 +41,10 @@
 		8FF246352ADB8511009B8952 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		8FF246372ADB8526009B8952 /* AnswerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerButtonView.swift; sourceTree = "<group>"; };
 		8FF246392ADB8536009B8952 /* QuestionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionData.swift; sourceTree = "<group>"; };
+		BC2123DB2ADB9743002584D8 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		BC5D96EC2ADBF89E009CF03A /* InitiQuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiQuesView.swift; sourceTree = "<group>"; };
+		BC5D96F12ADBFA98009CF03A /* AnswerInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerInit.swift; sourceTree = "<group>"; };
+		BCDABB0E2ADB918C00525BBB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				8FF245E32ADB810F009B8952 /* ogre */,
-				8FB198A22ADB8A04008695A0 /* GoogleService-Info.plist */,
 				8FF245E22ADB810F009B8952 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -76,11 +81,15 @@
 		8FF245E32ADB810F009B8952 /* ogre */ = {
 			isa = PBXGroup;
 			children = (
+				BC5D96F02ADBFA71009CF03A /* Models */,
+				BCDABB0E2ADB918C00525BBB /* GoogleService-Info.plist */,
 				8FF245E42ADB810F009B8952 /* ogreApp.swift */,
 				8FF245E62ADB810F009B8952 /* MainMenuView.swift */,
 				8FF2462B2ADB84B9009B8952 /* LeaderboardView.swift */,
 				8FF2462D2ADB84C8009B8952 /* ProfileView.swift */,
+				BC2123DB2ADB9743002584D8 /* OnboardingView.swift */,
 				8FF2462F2ADB84D4009B8952 /* QuestionView.swift */,
+				BC5D96EC2ADBF89E009CF03A /* InitiQuesView.swift */,
 				8FF246312ADB84DF009B8952 /* Elements */,
 				8FF246322ADB84E9009B8952 /* Data */,
 				8FF245E82ADB8111009B8952 /* Assets.xcassets */,
@@ -113,6 +122,14 @@
 				8FF246392ADB8536009B8952 /* QuestionData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		BC5D96F02ADBFA71009CF03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC5D96F12ADBFA98009CF03A /* AnswerInit.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,8 +200,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF245EC2ADB8111009B8952 /* Preview Assets.xcassets in Resources */,
-				8FB198A32ADB8A04008695A0 /* GoogleService-Info.plist in Resources */,
 				8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */,
+				BCDABB0F2ADB918C00525BBB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,8 +215,11 @@
 				8FF2463A2ADB8536009B8952 /* QuestionData.swift in Sources */,
 				8FF246382ADB8526009B8952 /* AnswerButtonView.swift in Sources */,
 				8FF246302ADB84D4009B8952 /* QuestionView.swift in Sources */,
+				BC2123DC2ADB9743002584D8 /* OnboardingView.swift in Sources */,
 				8FF2462E2ADB84C8009B8952 /* ProfileView.swift in Sources */,
+				BC5D96ED2ADBF89E009CF03A /* InitiQuesView.swift in Sources */,
 				8FF246342ADB8503009B8952 /* PagingSlider.swift in Sources */,
+				BC5D96F22ADBFA98009CF03A /* AnswerInit.swift in Sources */,
 				8FF245E72ADB810F009B8952 /* MainMenuView.swift in Sources */,
 				8FF2462C2ADB84B9009B8952 /* LeaderboardView.swift in Sources */,
 				8FF245E52ADB810F009B8952 /* ogreApp.swift in Sources */,

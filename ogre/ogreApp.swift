@@ -30,7 +30,7 @@ struct OGRE_PrototypeApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            MainMenuView()
+            OnboardingView()
         }
     }
 }
