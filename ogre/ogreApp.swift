@@ -6,31 +6,30 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 import FirebaseCore
 
-
-// Initialize Firebase
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+//        Auth.auth().useEmulator(withHost:"localhost", port:9099)
+        return true
+    }
 }
 
-
 @main
-struct OGRE_PrototypeApp: App {
-    
-    // Initialize Firebase
+struct ogreApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
-    init() {
-        
-    }
     var body: some Scene {
         WindowGroup {
-            MainMenuView()
+            NavigationStack {
+                AuthenticatedView {
+                } content: {
+                    OnboardingView()
+                }
+            }
         }
     }
 }
