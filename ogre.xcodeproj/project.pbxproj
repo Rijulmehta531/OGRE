@@ -34,6 +34,9 @@
 		8FE15D232ADCB20E00C11B36 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE15D222ADCB20E00C11B36 /* Quiz.swift */; };
 		8FE15D252ADCB21500C11B36 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE15D242ADCB21500C11B36 /* PrimaryButton.swift */; };
 		8FE15D272ADCB21700C11B36 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE15D262ADCB21700C11B36 /* ProgressBar.swift */; };
+		8FE15D2C2ADCBD4300C11B36 /* AnswerInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE15D2B2ADCBD4300C11B36 /* AnswerInit.swift */; };
+		8FE15D2E2ADCBD8100C11B36 /* InitiQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE15D2D2ADCBD8100C11B36 /* InitiQuesView.swift */; };
+		8FE15D302ADCBDA100C11B36 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE15D2F2ADCBDA100C11B36 /* OnboardingView.swift */; };
 		8FF245E52ADB810F009B8952 /* ogreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF245E42ADB810F009B8952 /* ogreApp.swift */; };
 		8FF245E72ADB810F009B8952 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF245E62ADB810F009B8952 /* MainMenuView.swift */; };
 		8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FF245E82ADB8111009B8952 /* Assets.xcassets */; };
@@ -73,6 +76,9 @@
 		8FE15D222ADCB20E00C11B36 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		8FE15D242ADCB21500C11B36 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		8FE15D262ADCB21700C11B36 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		8FE15D2B2ADCBD4300C11B36 /* AnswerInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerInit.swift; sourceTree = "<group>"; };
+		8FE15D2D2ADCBD8100C11B36 /* InitiQuesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitiQuesView.swift; sourceTree = "<group>"; };
+		8FE15D2F2ADCBDA100C11B36 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		8FF245E12ADB810F009B8952 /* ogre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ogre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF245E42ADB810F009B8952 /* ogreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ogreApp.swift; sourceTree = "<group>"; };
 		8FF245E62ADB810F009B8952 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 				8FE15D1C2ADCB1F600C11B36 /* AnswerRow.swift */,
 				8FF246372ADB8526009B8952 /* AnswerButton.swift */,
 				8FE15D1E2ADCB1FF00C11B36 /* AnswerButtonView.swift */,
+				8FE15D2B2ADCBD4300C11B36 /* AnswerInit.swift */,
 				8FB198AD2ADC015E008695A0 /* CategorySelector.swift */,
 				8FE15D202ADCB20B00C11B36 /* LaunchQuestionsView.swift */,
 				8FE15D222ADCB20E00C11B36 /* Quiz.swift */,
@@ -193,8 +200,10 @@
 				8FB198C32ADC3BDE008695A0 /* Google Auth Test */,
 				8FB198AA2ADB9889008695A0 /* Info.plist */,
 				8FF245E42ADB810F009B8952 /* ogreApp.swift */,
-				8FE15D072ADCA5E700C11B36 /* QuizManager.swift */,
 				8FE15D092ADCA5F000C11B36 /* Extensions.swift */,
+				8FE15D2D2ADCBD8100C11B36 /* InitiQuesView.swift */,
+				8FE15D2F2ADCBDA100C11B36 /* OnboardingView.swift */,
+				8FE15D072ADCA5E700C11B36 /* QuizManager.swift */,
 				8FE15D132ADCAB8D00C11B36 /* Views */,
 				8FE15D282ADCB23300C11B36 /* Elements */,
 				8FF246322ADB84E9009B8952 /* Data */,
@@ -313,8 +322,10 @@
 				8FB198AE2ADC015E008695A0 /* CategorySelector.swift in Sources */,
 				8FF2463A2ADB8536009B8952 /* QuestionData.swift in Sources */,
 				8FF246382ADB8526009B8952 /* AnswerButton.swift in Sources */,
+				8FE15D302ADCBDA100C11B36 /* OnboardingView.swift in Sources */,
 				8FF246302ADB84D4009B8952 /* QuestionView.swift in Sources */,
 				8FE15D192ADCAED200C11B36 /* QuizView.swift in Sources */,
+				8FE15D2E2ADCBD8100C11B36 /* InitiQuesView.swift in Sources */,
 				8FF2462E2ADB84C8009B8952 /* ProfileView.swift in Sources */,
 				8FF246342ADB8503009B8952 /* PagingSlider.swift in Sources */,
 				8FF245E72ADB810F009B8952 /* MainMenuView.swift in Sources */,
@@ -333,6 +344,7 @@
 				8FB198C22ADC3B8B008695A0 /* AuthenticationView.swift in Sources */,
 				8FF245E52ADB810F009B8952 /* ogreApp.swift in Sources */,
 				8FE15D232ADCB20E00C11B36 /* Quiz.swift in Sources */,
+				8FE15D2C2ADCBD4300C11B36 /* AnswerInit.swift in Sources */,
 				8FE15D1B2ADCB1F200C11B36 /* Answer.swift in Sources */,
 				8FE15D252ADCB21500C11B36 /* PrimaryButton.swift in Sources */,
 				8FB198D12ADC3D6B008695A0 /* AuthenticatedView.swift in Sources */,
