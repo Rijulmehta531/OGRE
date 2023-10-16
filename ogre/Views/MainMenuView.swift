@@ -84,23 +84,3 @@ struct MainMenuView: View {
 #Preview {
     MainMenuView()
 }
-
-
-
-//
-//
-//NavigationLink(
-//    destination: QuizView()
-//        .environmentObject(quizManager),
-//    isActive: $showQScreen,
-//    label: {
-//        Image(systemName: "play.fill")
-//            .resizable()
-//            .aspectRatio(contentMode: .fit)
-//            .frame(width: 20, height: 20)
-//            .foregroundColor(.white)
-//            .padding(20)
-//            .background(Color.green)
-//            .clipShape(Circle())
-//    }
-//)
