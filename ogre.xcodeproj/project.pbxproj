@@ -13,6 +13,7 @@
 		8FB198B72ADC2656008695A0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8FB198B62ADC2656008695A0 /* FirebaseFirestoreSwift */; };
 		8FB198BA2ADC2890008695A0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 8FB198B92ADC2890008695A0 /* GoogleSignIn */; };
 		8FB198BC2ADC2890008695A0 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8FB198BB2ADC2890008695A0 /* GoogleSignInSwift */; };
+		8FB198BE2ADC297F008695A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FB198BD2ADC297F008695A0 /* GoogleService-Info.plist */; };
 		8FB198C02ADC3AA5008695A0 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB198BF2ADC3AA5008695A0 /* AuthenticationViewModel.swift */; };
 		8FB198C22ADC3B8B008695A0 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB198C12ADC3B8B008695A0 /* AuthenticationView.swift */; };
 		8FB198C52ADC3C24008695A0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB198C42ADC3C24008695A0 /* LoginView.swift */; };
@@ -58,6 +59,7 @@
 		8FB198A92ADB9820008695A0 /* Optima.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Optima.ttc; sourceTree = "<group>"; };
 		8FB198AA2ADB9889008695A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8FB198AD2ADC015E008695A0 /* CategorySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelector.swift; sourceTree = "<group>"; };
+		8FB198BD2ADC297F008695A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FB198BF2ADC3AA5008695A0 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		8FB198C12ADC3B8B008695A0 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		8FB198C42ADC3C24008695A0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,9 @@
 			isa = PBXGroup;
 			children = (
 				8FF245E32ADB810F009B8952 /* ogre */,
+
+				8FB198BD2ADC297F008695A0 /* GoogleService-Info.plist */,
+
 				8FF245E22ADB810F009B8952 /* Products */,
 				8FB198B12ADC2587008695A0 /* Frameworks */,
 			);
@@ -196,7 +201,9 @@
 		8FF245E32ADB810F009B8952 /* ogre */ = {
 			isa = PBXGroup;
 			children = (
+
 				BC7AB7CF2AEF618F00251241 /* GoogleService-Info.plist */,
+
 				8FB198C32ADC3BDE008695A0 /* Google Auth Test */,
 				8FB198AA2ADB9889008695A0 /* Info.plist */,
 				8FF245E42ADB810F009B8952 /* ogreApp.swift */,
@@ -307,6 +314,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF245EC2ADB8111009B8952 /* Preview Assets.xcassets in Resources */,
+
+				8FB198BE2ADC297F008695A0 /* GoogleService-Info.plist in Resources */,
+
 				8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */,
 				BC7AB7D02AEF618F00251241 /* GoogleService-Info.plist in Resources */,
 			);

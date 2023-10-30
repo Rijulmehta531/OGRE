@@ -2,6 +2,7 @@
   "colors" : [
     {
       "color" : {
+
         "color-space" : "srgb",
         "components" : {
           "alpha" : "1.000",
@@ -9,6 +10,8 @@
           "green" : "0x6B",
           "red" : "0x9E"
         }
+        "platform" : "watchos",
+        "reference" : "systemIndigoColor"
       },
       "idiom" : "universal"
     }
