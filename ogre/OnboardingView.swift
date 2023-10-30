@@ -1,10 +1,3 @@
-//
-//  OnboardingView.swift
-//  ogre
-//
-//  Created by Rijul Mehta on 10/14/23.
-//
-
 import SwiftUI
 
 struct OnboardingView: View {
@@ -15,60 +8,72 @@ struct OnboardingView: View {
     }
 }
 
-struct WalkthroughScreen: View{
+struct WalkthroughScreen: View {
     @State private var currentPage = 1
+    @State private var buttonOpacity = 1.0
+    @State private var path = NavigationPath()
     var body:some View{
-        NavigationView {
+        NavigationStack() {
             ZStack{
                 if currentPage==1{
-                    ScreenView(image: "ob1", detail: "Hey there, fellow test-takers! I'm your friendly neighborhood squirrel, and I'm here to tell you about the ultimate GRE app that's going to make your prep a total breeze. I call it \"OGRE\" 🐿️📚",bgColor: Color.black,tColor: Color.bgColor1)
+                    ScreenView(image: "obj1", detail: "Hey there, fellow test-takers! I'm your friendly neighborhood squirrel, and I'm here to tell you about the ultimate GRE app that's going to make your prep a total breeze. I call it \"OGRE\" 🐿️📚",bgColor: Color.black,tColor: Color.bgColor1)
                         .transition(.scale)
                 }
                 if currentPage==2{
-                    ScreenView(image: "ob2", detail: "Picture this: you, acing the GRE like a pro, from the comfort of your treehouse or favorite coffee shop. With \"OGRE,\" you've got personalized tests that adapt to your strengths and weaknesses. It's like having a nut stash tailored just for you!",bgColor: Color.black,tColor: Color.bgColor1)
+                    ScreenView(image: "obj2", detail: "Picture this: you, acing the GRE like a pro, from the comfort of your treehouse or favorite coffee shop. With \"OGRE,\" you've got personalized tests that adapt to your strengths and weaknesses. It's like having a nut stash tailored just for you!",bgColor: Color.black,tColor: Color.bgColor1)
                     .transition(.scale)}
                 if currentPage==3{
-                    ScreenView(image: "ob3", detail: "But that's not all, folks. We've got study materials that are as fresh as the juiciest acorns, and a bunch of cool features that'll make you jump for joy (figuratively, of course). Whether you're a GRE newbie or a seasoned squirrel, this app has got you covered.",bgColor: Color.black,tColor: Color.bgColor1)
+                    ScreenView(image: "obj3", detail: "But that's not all, folks. We've got study materials that are as fresh as the juiciest acorns, and a bunch of cool features that'll make you jump for joy (figuratively, of course). Whether you're a GRE newbie or a seasoned squirrel, this app has got you covered.",bgColor: Color.black,tColor: Color.bgColor1)
                     .transition(.scale)}
+                if currentPage==4{
+                    InitiQuesView()
+                }
+                if currentPage==5{
+                    MainMenuView()
+                }
+                }
             }
             .overlay{
                 //button
-                NavigationLink(destination: InitiQuesView(), isActive: .constant(currentPage > totalPages)) {
-                    Button(action: {
-                        //changing views
-                        withAnimation(.easeInOut){
-                            if currentPage<=totalPages{
-                                currentPage+=1
-                            }
-                            
+                Button(action: {
+                    //changing views
+                    withAnimation(.easeInOut){
+                        if currentPage<=totalPages+1{
+                            currentPage+=1
                         }
-                    }, label: {
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.black)
-                            .frame(width: 60,height: 60)
-                            .background(Color.bgColor1)
-                            .clipShape(Circle())
+                        if currentPage==totalPages+1 {
+                            buttonOpacity = 0
+                        }
+                    }
+                }, label: {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.black)
+                        .frame(width: 60,height: 60)
+                        .background(Color.bgColor1)
+                        .clipShape(Circle())
                         
-                        //Circular Slider
-                            .overlay{
-                                ZStack{
-                                    Circle()
-                                        .stroke(Color.white.opacity(0.04),lineWidth: 4)
-                                    
-                                    Circle()
-                                        .trim(from: 0,to:CGFloat(currentPage)/CGFloat(totalPages))
-                                        .stroke(Color.bgColor1,lineWidth: 4)
-                                        .rotationEffect(.init(degrees: -90))
-                                }
-                                .padding(-15)
+                    
+                    //Circular Slider
+                        .overlay{
+                            ZStack{
+                                Circle()
+                                    .stroke(Color.white.opacity(0.04),lineWidth: 4)
+                                
+                                Circle()
+                                    .trim(from: 0,to:CGFloat(currentPage)/CGFloat(totalPages))
+                                    .stroke(Color.bgColor1,lineWidth: 4)
+                                    .rotationEffect(.init(degrees: -90))
                             }
-                    })}
+                            .padding(-15)
+                        }
+                        .opacity(buttonOpacity)
+                })
                 .padding(.bottom,20)
                 .offset(y:330)}
+                
+            }
         }
-        }
-    }
 
 
 struct ScreenView: View {
