@@ -52,6 +52,7 @@
 		8FF246362ADB8511009B8952 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF246352ADB8511009B8952 /* TabBar.swift */; };
 		8FF246382ADB8526009B8952 /* AnswerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF246372ADB8526009B8952 /* AnswerButton.swift */; };
 		8FF2463A2ADB8536009B8952 /* QuestionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF246392ADB8536009B8952 /* QuestionData.swift */; };
+		BC7AB7D02AEF618F00251241 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC7AB7CF2AEF618F00251241 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		8FF246352ADB8511009B8952 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		8FF246372ADB8526009B8952 /* AnswerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerButton.swift; sourceTree = "<group>"; };
 		8FF246392ADB8536009B8952 /* QuestionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionData.swift; sourceTree = "<group>"; };
+		BC7AB7CF2AEF618F00251241 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/OGRE-main 2/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +182,9 @@
 			isa = PBXGroup;
 			children = (
 				8FF245E32ADB810F009B8952 /* ogre */,
+
 				8FB198BD2ADC297F008695A0 /* GoogleService-Info.plist */,
+
 				8FF245E22ADB810F009B8952 /* Products */,
 				8FB198B12ADC2587008695A0 /* Frameworks */,
 			);
@@ -197,6 +201,9 @@
 		8FF245E32ADB810F009B8952 /* ogre */ = {
 			isa = PBXGroup;
 			children = (
+
+				BC7AB7CF2AEF618F00251241 /* GoogleService-Info.plist */,
+
 				8FB198C32ADC3BDE008695A0 /* Google Auth Test */,
 				8FB198AA2ADB9889008695A0 /* Info.plist */,
 				8FF245E42ADB810F009B8952 /* ogreApp.swift */,
@@ -307,8 +314,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF245EC2ADB8111009B8952 /* Preview Assets.xcassets in Resources */,
+
 				8FB198BE2ADC297F008695A0 /* GoogleService-Info.plist in Resources */,
+
 				8FF245E92ADB8111009B8952 /* Assets.xcassets in Resources */,
+				BC7AB7D02AEF618F00251241 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

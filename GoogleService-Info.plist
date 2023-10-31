@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>API_KEY</key>
-	<string>AIzaSyBWGtm9xHE0tvdfwiJPOyrG9I4WQq4uvYQ</string>
+	
+	
 	<key>GCM_SENDER_ID</key>
 	<string>852705328440</string>
 	<key>PLIST_VERSION</key>

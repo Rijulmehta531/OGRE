@@ -18,7 +18,11 @@ struct MainMenuView: View {
     @State private var selectedTab: Tab = .house
     @State private var useTimer = false
     @StateObject var quizManager = QuizManager()
-    
+
+    //@EnvironmentObject var quizManager: QuizManager
+    //@EnvironmentObject var viewModel: AuthenticationViewModel
+
+
     var body: some View {
         NavigationView {
             ZStack {
