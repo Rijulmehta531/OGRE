@@ -9,17 +9,33 @@ import SwiftUI
 struct QuestionView: View {
     @EnvironmentObject var quizManager: QuizManager
     
+    @State var isSubmitButtonClicked = false
+    @State var timeRemaining = 45
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         VStack(spacing: 40) {
             HStack{
                 Text("OGRE")
                     .lilacTitle()
-                
+                Spacer()
+                TimerView(timeRemaining: $timeRemaining)
+                    .onReceive(timer, perform: { _ in
+                        if timeRemaining > 0 && !isSubmitButtonClicked{
+                            timeRemaining -= 1
+                        }
+                        else{
+                            let defaultAnswer = Answer(text: AttributedString("No Selection"), isCorrect: false)
+                            quizManager.goToNextQuestion(answer: quizManager.currentAnswer ?? defaultAnswer)
+                            timeRemaining = 45
+                        }
+                    })
                 Spacer()
                 
                 Text("\(quizManager.index + 1) out of \(quizManager.length)")
                     .foregroundColor(Color.accentColor)
                     .fontWeight(.heavy)
+                
             }
             ProgressBar(progress: quizManager.progress)
             
@@ -36,11 +52,12 @@ struct QuestionView: View {
             }
             
             Button{
-                quizManager.goToNextQuestion()
+                quizManager.isSubmitButtonPressed.toggle()
+                timeRemaining = 45
             } label: {
-                PrimaryButton(text: "Next", background: quizManager.answerSelected ? Color("AccentColor") : Color(hue:1.0, saturation: 0.0, brightness: 0.564, opacity: 0.327))
+                PrimaryButton(text: "Submit", background: quizManager.answerSelected ? Color("AccentColor") : Color(hue:1.0, saturation: 0.0, brightness: 0.564, opacity: 0.327))
             }
-            .disabled(!quizManager.answerSelected)
+            .disabled(!quizManager.answerSelected) // Disabled until 1 answer is selected
             
             Spacer()
             

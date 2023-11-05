@@ -9,43 +9,64 @@ import SwiftUI
 
 struct QuizView: View {
     @EnvironmentObject var quizManager: QuizManager
+    
+    @Binding var quizMode: Bool
+    @State private var navigateToMainMenu = false
+    
     var body: some View {
-        if quizManager.reachedEnd {
-            VStack(spacing: 20){
-                    Text("OGRE")
-                        .lilacTitle()
-                    
-                    Text("Congratulations! Quiz Completed!  🥳")
-                    
-                    Text("You got \(quizManager.score) out of \(quizManager.length) questions correct.\n\n")
-                    Text("Answers you got wrong:")
-                    Text("Sample Wrong Answer Explanation ")
-                    Text("Sample Wrong Answer Explanation ")
-                    Text("Sample Wrong Answer Explanation \n")
+            if quizManager.reachedEnd {
                 
-                Button{
-                    Task.init{
-                        await quizManager.fetchQuiz()
+                PostQuizScreen()
+                    .navigationBarHidden(true)
+                HStack {
+                    Button{
+                        Task.init{
+                            await quizManager.fetchQuiz()
+                        }
+                        
+                    }label: {
+                        PrimaryButton(text: "Next Quiz")
                     }
+                
+                    Button {
+                                            navigateToMainMenu = true  // Set this to true when the button is tapped
+                                        }
+                                        label: {
+                                            PrimaryButton(text: "Main Menu", background: Color.accentColor)
+                                        }
+                                        
+                                        NavigationLink(destination: MainMenuView(), isActive: $navigateToMainMenu) {
+                                            EmptyView()
+                                        }
+                                    }
+                
                     
-                }label: {
-                    PrimaryButton(text: "Next Quiz")
-                }
+                    
                 Spacer()
                 
+            }
+            
+            
+            else{
+                if quizMode{
+                    QuestionView()
+                        .environmentObject(quizManager)
+                        .navigationBarHidden(true)
                 }
-                .foregroundColor(Color("AccentColor"))
-                .padding()
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
-        } else{
-            QuestionView()
-                .environmentObject(quizManager)
+                else{
+                    PracticeQuestionView()
+                        .environmentObject(quizManager)
+                        .navigationBarHidden(true)
+                }
+                
+                
+            }
+            
         }
-        
     }
-}
+    
 
 #Preview {
-    QuizView()
+    QuizView(quizMode: .constant(true))
         .environmentObject(QuizManager())
 }

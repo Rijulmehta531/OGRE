@@ -16,7 +16,9 @@ let name = "Rao"
 
 struct MainMenuView: View {
     @State private var selectedTab: Tab = .house
-    @State private var useTimer = false
+    
+    @State var quizMode = false
+    
     @StateObject var quizManager = QuizManager()
     //@EnvironmentObject var quizManager: QuizManager
     //@EnvironmentObject var viewModel: AuthenticationViewModel
@@ -40,19 +42,20 @@ struct MainMenuView: View {
                                     Spacer()
                                     VStack() {
                                         Toggle(
-                                            "Timer",
+                                            "Quiz Mode",
                                             systemImage: "timer",
-                                            isOn: $useTimer
+                                            isOn: $quizMode
                                         )
                                         .font(.custom("Optima-Bold", size: 22, relativeTo: .title2))
                                         NavigationLink(
-                                            destination: QuizView()
+                                            destination: QuizView(quizMode: $quizMode)
                                                 .environmentObject(quizManager),
                                             label: {
                                                 Text("Start")
                                                 .font(.custom("Optima-ExtraBlack", size: 34, relativeTo: .largeTitle))
                                             }
                                         )
+                                        .navigationBarHidden(true)
                                     }
                                     .padding()
                                     .background(.purple)

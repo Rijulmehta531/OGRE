@@ -14,11 +14,31 @@ class QuizManager: ObservableObject{
     @Published private(set) var length = 0
     @Published private(set) var index = 0
     @Published private(set) var reachedEnd = false
-    @Published private(set) var answerSelected = false
+    
+    @Published var answerSelected: Bool = false
     @Published private(set) var question: AttributedString = ""
     @Published private(set) var answerChoices: [Answer] = []
     @Published private(set) var progress: CGFloat = 0.00
     @Published private(set) var score = 0
+    @Published var currentAnswer: Answer?
+    @Published var selectedAnswer: Answer? //To keep track of highlighting and dehighlighting in answer row
+    
+    //variables to keep track of the popup in the practice view
+    @Published var feedbackMessage = ""
+    @Published var feedbackColor = Color.green
+    @Published var isShowingPopup: Bool = false
+    
+    @Published var questionsForPost: [AttributedString] = []
+    @Published var selectedAnswers: [AttributedString] = []
+    @Published var correctAnswers: [AttributedString] = []
+    
+    @Published var isSubmitButtonPressed: Bool = false{
+        didSet{
+            if isSubmitButtonPressed, let answer = currentAnswer{
+                goToNextQuestion(answer: answer)
+            }
+        }
+    }
     
     init(){
         Task.init{
@@ -27,6 +47,7 @@ class QuizManager: ObservableObject{
     }
     
     func fetchQuiz() async{
+        selectedAnswers = []
         guard let url = URL(string: "https://opentdb.com/api.php?amount=10") else { fatalError("Missing URL")}
         
         let urlRequest = URLRequest(url: url)
@@ -56,7 +77,31 @@ class QuizManager: ObservableObject{
         }
     }
     
-    func goToNextQuestion() {
+    //Function to chek the answer in the practice view and create a popup accordingly
+    func checkAnswer() {
+        if let selectedAnswer = currentAnswer {
+                    if selectedAnswer.isCorrect {
+                        // Set the feedback message and color to positive
+                        feedbackMessage = "You got it right!"
+                        feedbackColor = Color.green
+                    } else {
+                        // Set the feedback message and color to negative
+                        feedbackMessage = "Sorry, that's wrong."
+                        feedbackColor = Color.red
+                    }
+                }
+            }
+    
+    func goToNextQuestion(answer: Answer) {
+        
+        selectedAnswers.append(answer.text)
+        questionsForPost.append(quiz[index].formattedQuestion)
+  
+        print(selectedAnswers)
+        isSubmitButtonPressed = false
+        if answer.isCorrect{
+            score+=1
+        }
         if index + 1 < length {
             index += 1
             setQuestion()
@@ -73,13 +118,14 @@ class QuizManager: ObservableObject{
             let currentQuizQuestion = quiz[index]
             question = currentQuizQuestion.formattedQuestion
             answerChoices = currentQuizQuestion.answers
+            correctAnswers.append(currentQuizQuestion.cAns[0].text)
+            print("Correct answers array \(correctAnswers)")
         }
     }
     
     func selectedAnswer(answer: Answer){
-        answerSelected = true
-        if answer.isCorrect{
-            score += 1
-        }
+        //answerSelected = true
+        currentAnswer = answer
+        selectedAnswer = answer
     }
 }

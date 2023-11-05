@@ -12,7 +12,9 @@ struct AnswerRow: View {
     @EnvironmentObject var quizManager: QuizManager
     
     var answer: Answer
-    @State private var isSelected = false
+    var isSelected: Bool{
+        quizManager.selectedAnswer == answer
+    }
     
     var green = Color(hue: 0.437, saturation: 0.771, brightness: 0.771)
     var red = Color(red: 0.71, green: 0.094, blue: 0.1)
@@ -25,12 +27,13 @@ struct AnswerRow: View {
             Text(answer.text)
                 .bold()
             
-            if isSelected {
-                Spacer()
-                
-                Image(systemName: answer.isCorrect ? "checkmark.circle.fill" : "x.circle.fill")
-                    .foregroundColor(answer.isCorrect ? green : red)
-            }
+//            if isSelected {
+//                Spacer()
+//                Image(systemName: "")
+//                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+////                Image(systemName: answer.isCorrect ? "checkmark.circle.fill" : "x.circle.fill")
+////                    .foregroundColor(answer.isCorrect ? green : red)
+//            }
             
         }
         .padding()
@@ -38,12 +41,11 @@ struct AnswerRow: View {
         .foregroundColor(quizManager.answerSelected ? (isSelected ? Color("AccentColor") : .gray) : Color("AccentColor"))
         .background(.white)
         .cornerRadius(10)
-        .shadow(color: isSelected ? (answer.isCorrect ? green : red) : .gray, radius: 5, x: 0.5, y:0.5)
+        .shadow(color: isSelected ? Color.blue : .gray, radius: 5, x: 0.5, y:0.5)
         .onTapGesture {
-            if !quizManager.answerSelected{
-                isSelected = true
+                quizManager.answerSelected = true
                 quizManager.selectedAnswer(answer: answer)
-            }
+                quizManager.isShowingPopup = false
             
         }
     }
