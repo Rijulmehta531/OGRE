@@ -18,10 +18,8 @@ struct MainMenuView: View {
     @State private var selectedTab: Tab = .house
     @State private var useTimer = false
     @StateObject var quizManager = QuizManager()
-
     //@EnvironmentObject var quizManager: QuizManager
     //@EnvironmentObject var viewModel: AuthenticationViewModel
-
 
     var body: some View {
         NavigationView {
@@ -66,13 +64,13 @@ struct MainMenuView: View {
                                 }
                             }
                         } else if selectedTab == Tab.book {
-                            Text("Study Materials Under Construction")
+                            StudyView()
                         } else if selectedTab == Tab.gearshape {
-                            Text("Settings Under Construction")
+                            SettingsView()
                         } else if selectedTab == Tab.person {
-                            Text("Profile Under Construction")
+                            ProfileView()
                         } else {
-                            Text("Leaderboard Under Construction")
+                            LeaderboardView()
                         }
                     }
                 }
