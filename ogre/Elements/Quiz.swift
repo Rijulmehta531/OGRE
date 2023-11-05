@@ -30,6 +30,15 @@ struct Quiz: Decodable{
                 return ""
             }
         }
+        var cAns: [Answer]{
+            do{
+                let corr = [Answer(text: try AttributedString(markdown: correctAnswer), isCorrect: true)]
+                return corr}
+            catch {
+                print("Error setting answers: \(error)")
+                return []
+            }
+        }
         
         var answers: [Answer] {
             do{
