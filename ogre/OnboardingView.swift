@@ -1,12 +1,3 @@
-
-//
-//  OnboardingView.swift
-//  ogre
-//
-//  Created by Rijul Mehta on 10/14/23.
-//
-
-
 import SwiftUI
 
 struct OnboardingView: View {
@@ -50,9 +41,7 @@ struct WalkthroughScreen: View {
                         if currentPage<=totalPages+1{
                             currentPage+=1
                         }
-
                         if currentPage==totalPages+1 {
-
                             buttonOpacity = 0
                         }
                     }

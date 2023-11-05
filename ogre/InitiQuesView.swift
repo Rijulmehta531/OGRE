@@ -26,6 +26,7 @@ struct AnswerView: View {
                .onTapGesture {
                    selectedAnswer = answerText
                }
+           
        }
 }
 
@@ -33,7 +34,6 @@ struct AnswerView: View {
 struct InitiQuesView: View {
     var body: some View {
         FirstView()
-
             .navigationBarHidden(true)
     }
 }
@@ -133,7 +133,6 @@ struct ScreenV: View{
         }
     }
 }
-
 #Preview {
     InitiQuesView()
 }
