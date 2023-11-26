@@ -27,7 +27,7 @@ struct ogreApp: App {
             NavigationStack {
                 AuthenticatedView {
                 } content: {
-                    OnboardingView()
+                    MainMenuView()
                 }
             }
         }

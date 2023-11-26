@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct General_CS: View {
     var body: some View {
@@ -19,6 +20,11 @@ struct General_CS: View {
                     GCategorySelector(
                         categoryName: "General GRE Test \nStrategies/Tips",
                         categoryDescription: "",
+                        categoryIcon: ""
+                    )
+                    GCategorySelector(
+                        categoryName: "Community Upload",
+                        categoryDescription: "Upload notes and other study resources",
                         categoryIcon: ""
                     )
                     
@@ -37,12 +43,17 @@ struct GCategorySelector: View {
     let categoryDescription: String
     let categoryIcon: String
     @State private var categorySelected = false
+    @State var isCUploadPresented = false
     
     var body: some View {
         Button(action: {
-                    if let url = URL(string: "https://www.ets.org/gre/test-takers/general-test/prepare/strategies-tips.html") {
-                        UIApplication.shared.open(url)
-                    }
+            if(categoryName == "General GRE Test \nStrategies/Tips") {
+                if let url = URL(string: "https://www.ets.org/gre/test-takers/general-test/prepare/strategies-tips.html") {
+                    UIApplication.shared.open(url)
+                }
+            } else {
+                isCUploadPresented = true
+            }
                 }) {
                     ZStack() {
                         RoundedRectangle(cornerRadius: 16)
@@ -54,6 +65,17 @@ struct GCategorySelector: View {
                                 
                         }
                         .foregroundColor(.white)
+                    }
+                }
+                .popover(isPresented: $isCUploadPresented) {
+                    VStack(alignment: .leading) {
+                        Text("\nCommunity Upload")
+                            .font(.custom("Optima-ExtraBlack", size: 22, relativeTo: .title2))
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, 16)
+                            .foregroundColor(.white)
+                            .background(.purple)
+                        Spacer()
                     }
                 }
             
