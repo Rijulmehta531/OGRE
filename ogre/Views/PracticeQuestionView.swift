@@ -11,6 +11,11 @@ import SwiftUI
 struct PracticeQuestionView: View {
     @EnvironmentObject var quizManager: QuizManager
     
+    func stringToAnswer(_ string: String) -> Answer {
+        return Answer(text: AttributedString(string), isCorrect: false)
+    }
+    
+    
     
     var body: some View {
         NavigationView{
@@ -37,14 +42,50 @@ struct PracticeQuestionView: View {
                     }
                     
                     VStack(alignment:.leading, spacing: 20){
-                        Text(quizManager.question)
-                            .font(.system(size: 20))
-                            .bold()
-                            .foregroundColor(.black)
-                        
-                        ForEach(quizManager.answerChoices, id: \.id){
-                            answer in AnswerRow(answer: answer)
-                                .environmentObject(quizManager)
+                        if let question = quizManager.question{
+                            ScrollView {
+                                //Text("Description:")
+                                WebView(htmlString: question.descriptionHtml)
+                                    .frame(minHeight: 150)
+                                //                                    .border(.black)
+                                
+                            }
+                            .frame(height: 150)
+                            
+                                if(!question.answers.isEmpty){
+                                    ForEach(question.answers, id: \.id){
+                                        answer in AnswerRow(answer: answer)
+                                            .environmentObject(quizManager)
+                                    }
+                                }
+                                else if(!question.answers.isEmpty && question.type == "checkbox"){
+                                    ForEach(question.answers, id: \.id){
+                                        answer in Checkbox(answer: answer)
+                                            .environmentObject(quizManager)
+                                    }
+                                }
+                            else if(question.type == "multiple_radio"){
+                                         AnswerRow(answer: stringToAnswer("Under Construction"))
+                                        .environmentObject(quizManager)
+                                }
+                                
+                                else{
+                                    if question.type == "small_text"{
+                                        TextField("Enter your answer", text: $quizManager.shortAns)
+                                            .border(Color.accentColor)
+                                            .onChange(of: quizManager.shortAns) { _ in
+                                                quizManager.answerSelected = !quizManager.shortAns.isEmpty
+                                            }
+                                    }
+                                    else{
+                                        TextEditor(text: $quizManager.longAns)
+                                            .border(Color.accentColor)
+                                            .onChange(of: quizManager.longAns) { _ in
+                                                quizManager.answerSelected = !quizManager.longAns.isEmpty
+                                            }
+                                    }
+                                    
+                                }
                         }
                     }
                     
@@ -61,7 +102,14 @@ struct PracticeQuestionView: View {
                         
                         Button{
                             quizManager.isShowingPopup = false
-                            quizManager.isSubmitButtonPressed.toggle()
+                            if quizManager.index == 1{
+                                quizManager.isSubmitButtonPressed = true
+                            }
+                            else{
+                                quizManager.isSubmitButtonPressed.toggle()
+                            }
+                            quizManager.shortAns = ""
+                            quizManager.longAns = ""
                         } label: {
                             PrimaryButton(text: "Next", background: quizManager.answerSelected ? Color("AccentColor") : Color(hue:1.0, saturation: 0.0, brightness: 0.564, opacity: 0.327))
                         }
@@ -80,16 +128,16 @@ struct PracticeQuestionView: View {
                     VStack(spacing: 20) {
                         ScrollView{
                             // A text view to show the feedback message
-                            Text(quizManager.feedbackMessage)
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.white)
+                            WebView(htmlString: quizManager.feedbackMessage)
+                                .frame(height: 300)
+                                .background(Color.black.opacity(0.8))
                             
                             // A button to dismiss the pop up window
                             Button(action: {
                                 // Set the isShowingPopUp variable to false
                                 quizManager.isShowingPopup = false
                             }) {
-                                Text("OK")
+                                Text("Close")
                                     .font(.system(size: 20, weight: .bold))
                                     .foregroundColor(quizManager.feedbackColor)
                                     .padding()
@@ -97,7 +145,7 @@ struct PracticeQuestionView: View {
                                     .cornerRadius(10)
                             }
                         }
-                        .frame(width:370 ,height:250)
+                        .frame(width:370 ,height:690)
                     }
                     // A background with rounded corners for the pop up window
                     .padding()
@@ -109,13 +157,14 @@ struct PracticeQuestionView: View {
                     .position(x:UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height - 120)
                     // An animation modifier to add some transition effects to the pop up window
                     .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-            }
-                            }// z stack
+                }
+            }// z stack
             .navigationBarHidden(true)
-                        
-            }
+            
         }
     }
+}
+    
     
 
 #Preview {

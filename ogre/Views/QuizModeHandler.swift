@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct QuizView: View {
+struct QuizModeHandler: View {
     @EnvironmentObject var quizManager: QuizManager
     
     @Binding var quizMode: Bool
@@ -22,7 +22,7 @@ struct QuizView: View {
                 HStack {
                     Button{
                         Task.init{
-                            await quizManager.fetchQuiz()
+                            await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
                         }
                         
                     }label: {
@@ -50,14 +50,26 @@ struct QuizView: View {
             
             else{
                 if quizMode{
+                    
+                    
+                    
                     QuestionView()
                         .environmentObject(quizManager)
                         .navigationBarHidden(true)
+                        .onAppear{
+                            quizManager.length = 10
+                            Task{await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
+                            }}
                 }
                 else{
                     PracticeQuestionView()
                         .environmentObject(quizManager)
                         .navigationBarHidden(true)
+                        .onAppear{
+                            quizManager.length = 500 //replace with total number of questions
+                            Task{await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
+                            }
+                        }
                 }
                 
                 
@@ -68,6 +80,6 @@ struct QuizView: View {
     
 
 #Preview {
-    QuizView(quizMode: .constant(true))
+    QuizModeHandler(quizMode: .constant(true))
         .environmentObject(QuizManager())
 }

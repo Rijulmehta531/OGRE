@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct CategorySelector: View {
+    @EnvironmentObject var quizManager: QuizManager
+    
     @State private var VRSelected = false
     @State private var QRSelected = false
     @State private var AWSelected = false
+    
+   
+    
+
     
     var body: some View {
         VStack {
@@ -22,18 +28,25 @@ struct CategorySelector: View {
                     Category(
                         categoryName: "Verbal Reasoning",
                         categoryDescription: "Critical reading skills",
-                        categoryIcon: "doc.text.magnifyingglass"
+                        categoryIcon: "doc.text.magnifyingglass",
+                        nameDB: "verbal-reasoning"
+                        
                     )
+                    .environmentObject(quizManager)
                     Category(
                         categoryName: "Quantitative Reasoning",
                         categoryDescription: "Numerical problem solving",
-                        categoryIcon: "x.squareroot"
+                        categoryIcon: "x.squareroot",
+                        nameDB: "quantitative-reasoning"
                     )
+                    .environmentObject(quizManager)
                     Category(
                         categoryName: "Analytical Writing",
                         categoryDescription: "Advanced writing profeciency",
-                        categoryIcon: "pencil"
+                        categoryIcon: "pencil",
+                        nameDB: "ABC"
                     )
+                    .environmentObject(quizManager)
                 }
                 .scrollTargetLayout()
             }
@@ -45,14 +58,18 @@ struct CategorySelector: View {
 }
 
 struct Category: View {
+    @EnvironmentObject var quizManager: QuizManager
     let categoryName: String
     let categoryDescription: String
     let categoryIcon: String
+    let nameDB: String
     @State private var categorySelected = false
+   
     
     var body: some View {
         Button(action: {
             self.categorySelected.toggle()
+            quizManager.questionCategory = nameDB
         }) {
             ZStack() {
                 RoundedRectangle(cornerRadius: 16)
@@ -75,4 +92,5 @@ struct Category: View {
 
 #Preview{
     CategorySelector()
+        .environmentObject(QuizManager())
 }

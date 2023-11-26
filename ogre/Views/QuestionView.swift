@@ -16,6 +16,7 @@ struct QuestionView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
+
         VStack(spacing: 40) {
             HStack{
                 Text("OGRE")
@@ -28,7 +29,9 @@ struct QuestionView: View {
                         }
                         else{
                             let defaultAnswer = Answer(text: AttributedString("No Selection"), isCorrect: false)
-                            quizManager.goToNextQuestion(answer: quizManager.currentAnswer ?? defaultAnswer)
+                            Task {
+                                    await quizManager.goToNextQuestion(answer: quizManager.currentAnswer ?? defaultAnswer)
+                                }
                             timeRemaining = 20
                             isTimerPlaying = false
                             isTimerEndSoundPlaying = false
@@ -55,20 +58,54 @@ struct QuestionView: View {
             ProgressBar(progress: quizManager.progress)
             
             VStack(alignment:.leading, spacing: 20){
-                Text(quizManager.question)
-                    .font(.system(size: 20))
-                    .bold()
-                    .foregroundColor(.black)
-                
-                ForEach(quizManager.answerChoices, id: \.id){
-                    answer in AnswerRow(answer: answer)
-                        .environmentObject(quizManager)
+                if let question = quizManager.question{
+                    ScrollView {
+                        //Text("Description:")
+                        WebView(htmlString: question.descriptionHtml)
+                            .frame(minHeight: 150)
+//                                    .border(.black)
+                            
+                    }
+                    .frame(height: 150)
+                    ScrollView{
+                        if(!question.answers.isEmpty && question.type == "radio"){
+                            ForEach(question.answers, id: \.id){
+                                answer in AnswerRow(answer: answer)
+                                    .environmentObject(quizManager)
+                            }
+                        }
+                        else if(!question.answers.isEmpty && question.type == "checkbox"){
+                            ForEach(question.answers, id: \.id){
+                                answer in Checkbox(answer: answer)
+                                    .environmentObject(quizManager)
+                            }
+                        }
+                        
+                        else{
+                            if question.type == "small_text"{
+                                TextField("Enter your answer", text: $quizManager.shortAns)
+                                    .border(Color.accentColor)
+                                    .onChange(of: quizManager.shortAns) { _ in
+                                        quizManager.answerSelected = !quizManager.shortAns.isEmpty
+                                    }
+                            }
+                            else{
+                                TextEditor(text: $quizManager.longAns)
+                                    .border(Color.accentColor)
+                                    .onChange(of: quizManager.longAns) { _ in
+                                        quizManager.answerSelected = !quizManager.longAns.isEmpty
+                                    }
+                            }
+                        }
+                    }
                 }
             }
             
             Button{
                 quizManager.isSubmitButtonPressed.toggle()
                 timeRemaining = 20
+                quizManager.shortAns = ""
+                quizManager.longAns = ""
             } label: {
                 PrimaryButton(text: "Submit", background: quizManager.answerSelected ? Color("AccentColor") : Color(hue:1.0, saturation: 0.0, brightness: 0.564, opacity: 0.327))
             }

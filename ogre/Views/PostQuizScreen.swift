@@ -22,6 +22,18 @@ func convertToIdentifiableArray(_ array: [AttributedString]) -> [IdentifiableAtt
         return IdentifiableAttributedString(content: nsAttributedString)
     }
 }
+//For answers array which is a string array
+func convertStringArrayToIdentifiableArray(_ array: [String]) -> [IdentifiableAttributedString] {
+    return array.map {
+        // Create a new instance of AttributedString from String
+        let attributedString = AttributedString($0)
+        // Create a new instance of NSAttributed String from Attributed string
+        let nsAttributedString = NSAttributedString(attributedString)
+        // Return a new instance of IdentifiableAttributedString with the content
+        return IdentifiableAttributedString(content: nsAttributedString)
+    }
+}
+
 
 struct PostQuizScreen: View {
     @EnvironmentObject var quizManager: QuizManager
@@ -32,8 +44,9 @@ struct PostQuizScreen: View {
     }
     
     var questions: [IdentifiableAttributedString] {
-        convertToIdentifiableArray(quizManager.questionsForPost)
+        convertStringArrayToIdentifiableArray(quizManager.questionsForPost)
     }
+
     
     var correctAnswers: [IdentifiableAttributedString] {
     convertToIdentifiableArray(quizManager.correctAnswers)
@@ -55,6 +68,13 @@ struct PostQuizScreen: View {
                 .foregroundColor(Color.accentColor)
             
             let combined = Array(zip(zip(questions, selectedAnswers), correctAnswers)).map { ($0.0, $0.1, $1) }
+            
+//            for (question, selected, correct) in combined {
+//                print("Question: \(question.content.string)")
+//                print("Selected Answer: \(selected.content.string)")
+//                print("Correct Answer: \(correct.content.string)")
+//                print("--------------------")
+//            }
             
                 List{
                     ForEach(combined, id: \.0.id) { question, selected, correct in
@@ -86,8 +106,8 @@ struct PostQuizScreen: View {
                             }, label: {
                                 
                                 HStack {
-                                    Text(verbatim: question.content.string)
-                                        .font(.subheadline)
+                                    WebView(htmlString: question.content.string)
+                                        .frame(minHeight: 100)
                                 }
                                 .padding()
                             }
@@ -109,6 +129,7 @@ struct PostQuizScreen: View {
         
         .onAppear(){
             SoundManager.instance.playSound(sound: .quizEnd)
+            
         } }
     
        

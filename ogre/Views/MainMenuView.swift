@@ -39,6 +39,7 @@ struct MainMenuView: View {
                                     .background(.purple)
                                 Spacer()
                                 CategorySelector()
+                                    .environmentObject(quizManager)
                                 HStack {
                                     Spacer()
                                     VStack() {
@@ -49,7 +50,7 @@ struct MainMenuView: View {
                                         )
                                         .font(.custom("Optima-Bold", size: 22, relativeTo: .title2))
                                         NavigationLink(
-                                            destination: QuizView(quizMode: $quizMode)
+                                            destination: QuizModeHandler(quizMode: $quizMode)
                                                 .environmentObject(quizManager),
                                             label: {
                                                 Text("Start")
@@ -84,7 +85,7 @@ struct MainMenuView: View {
                                 }}
                             
                         } else if selectedTab == Tab.person {
-                            Text("Profile Under Construction")
+                            UserProfileView()
                         } else {
                             Text("Leaderboard Under Construction")
                         }

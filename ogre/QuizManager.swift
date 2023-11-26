@@ -7,16 +7,18 @@
 
 import Foundation
 import SwiftUI
+import Firebase
 
 
 class QuizManager: ObservableObject{
-    private(set) var quiz: [Quiz.Result] = []
-    @Published private(set) var length = 0
+    //private(set) var quiz: [Quiz.Result] = []
+
+    @Published var length: Int = 10
     @Published private(set) var index = 0
     @Published private(set) var reachedEnd = false
     
     @Published var answerSelected: Bool = false
-    @Published private(set) var question: AttributedString = ""
+    //@Published private(set) var question: AttributedString = ""
     @Published private(set) var answerChoices: [Answer] = []
     @Published private(set) var progress: CGFloat = 0.00
     @Published private(set) var score = 0
@@ -28,54 +30,80 @@ class QuizManager: ObservableObject{
     @Published var feedbackColor = Color.green
     @Published var isShowingPopup: Bool = false
     
-    @Published var questionsForPost: [AttributedString] = []
+    //Variables to fetch individual questions
+    @Published var question: QuestionObject?
+    @Published var questionIndex = 486
+    @Published var questionCategory = "quantitative-reasoning"
+  
+    
+    
+    @Published var questionsForPost: [String] = []
     @Published var selectedAnswers: [AttributedString] = []
     @Published var correctAnswers: [AttributedString] = []
+    //variables for text type responses.
+    @Published var shortAns : String = ""
+    @Published var longAns : String = ""
     
     @Published var isSubmitButtonPressed: Bool = false{
         didSet{
             if isSubmitButtonPressed, let answer = currentAnswer{
-                goToNextQuestion(answer: answer)
+                Task {
+                    await goToNextQuestion(answer: answer)
+                    }
             }
         }
     }
-    
-    init(){
-        Task.init{
-            await fetchQuiz()
-        }
-    }
-    
-    func fetchQuiz() async{
-        selectedAnswers = []
-        guard let url = URL(string: "https://opentdb.com/api.php?amount=10") else { fatalError("Missing URL")}
-        
-        let urlRequest = URLRequest(url: url)
-        
-        do{
-            let (data, response) = try await URLSession.shared.data(for: urlRequest)
-            
-            guard (response as? HTTPURLResponse)?.statusCode == 200 else {fatalError("Error while fetching data")}
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let decodedData = try decoder.decode(Quiz.self, from: data)
-            
+    func fetchQuestion (at index: Int, questionCategory: String) async {
+        let ref = Database.database().reference(withPath: "question-data/\(questionCategory)/\(index)")
+
+        ref.observeSingleEvent(of: .value) { (snapshot,error)  in
+//            print(snapshot.value)
+            guard let questionData = snapshot.value as? [String: Any] else {
+                print("Failed to fetch question at index \(index) for category \(questionCategory)")
+                return
+            }
+
+            var answers: [Answer] = []
+
+//            if let rawAnswers = questionData["answers"] as? [[String]] {
+//                answers = rawAnswers
+//            } else if let rawAnswer = questionData["answers"] as? [String] {
+//                answers = [rawAnswer]
+//            }
+            if let rawAnswers = questionData["answers"] as? [String] {
+                let correctAnswers = (questionData["correct"] as? [String] ?? []).map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                answers = rawAnswers.map {
+                    let trimmedAnswer = $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                    return Answer(text: AttributedString(trimmedAnswer), isCorrect: correctAnswers.contains(trimmedAnswer))
+                }
+            }
+
+
+            let question = QuestionObject(
+                id: questionData["id"] as? Int ?? 0,
+                type: questionData["type"] as? String ?? "",
+                instructions: questionData["instructions"] as? String ?? "",
+                description: questionData["description"] as? String ?? "",
+                header: questionData["header"] as? String ?? "",
+                answers: answers,
+                correct: questionData["correct"] as? [String] ?? [],
+                difficulty: questionData["difficulty"] as? String ?? "",
+                subject: questionData["subject"] as? [String] ?? [],
+                descriptionHtml: questionData["description-html"] as? String ?? "",
+                textExplanation: questionData["text-explanation"] as? String ?? ""
+            )
+
             DispatchQueue.main.async {
-                self.index = 0
-                self.score = 0
-                self.progress = 0.00
-                self.reachedEnd = false
-                
-                self.quiz = decodedData.results
-                self.length = self.quiz.count
-                self.setQuestion()
+                self.question = question
+                print("Fetched question at index \(index) for category \(questionCategory)")
             }
-            
-        } catch{
-            print("Error fetching quiz: \(error)")
+        } withCancel: { error in
+            print("Failed to fetch question at index \(index) for category \(questionCategory): \(error.localizedDescription)")
         }
     }
+
+
+
     
     //Function to chek the answer in the practice view and create a popup accordingly
     func checkAnswer() {
@@ -83,49 +111,60 @@ class QuizManager: ObservableObject{
                     if selectedAnswer.isCorrect {
                         SoundManager.instance.playSound(sound: .corrrect)
                         // Set the feedback message and color to positive
-                        feedbackMessage = "You got it right!"
+                        feedbackMessage = question?.textExplanation ?? "You got it correct!"
                         feedbackColor = Color.green
                     } else {
                         SoundManager.instance.playSound(sound: .incorrect)
                         // Set the feedback message and color to negative
-                        feedbackMessage = "Sorry, that's wrong."
+                        feedbackMessage = question?.textExplanation ?? "You got it wrong :("
                         feedbackColor = Color.red
                     }
                 }
             }
     
-    func goToNextQuestion(answer: Answer) {
-        
-        selectedAnswers.append(answer.text)
-        questionsForPost.append(quiz[index].formattedQuestion)
-  
-        print(selectedAnswers)
-        isSubmitButtonPressed = false
-        if answer.isCorrect{
-            score+=1
+    func goToNextQuestion(answer: Answer) async {
+        DispatchQueue.main.async {
+//            if self.question?.type == "short_answer"{
+//                self.shortAns = ""
+//            }
+//            if self.question?.type == "long_answer"{
+//                self.longAns = ""
+//            }
+            self.selectedAnswers.append(answer.text)
+            self.questionsForPost.append(self.question?.descriptionHtml ?? "")
+            print(self.selectedAnswers)
+            self.isSubmitButtonPressed = false
+            if answer.isCorrect{
+                self.score+=1
+            }
+            if self.index + 1 < self.length {
+                self.questionIndex += 1
+                self.index+=1
+            } else {
+                self.reachedEnd = true
+            }
         }
-        if index + 1 < length {
-            index += 1
-            setQuestion()
-        } else {
-            reachedEnd = true
-        }
+        await setQuestion()
     }
+
     
-    func setQuestion() {
-        
-        //SoundManager.instance.playSound(sound: .timer)// timer sound
-        
-        answerSelected = false
-        progress = CGFloat(Double(index + 1) / Double(length) * 350)
-        
-        if index < length {
-            let currentQuizQuestion = quiz[index]
-            question = currentQuizQuestion.formattedQuestion
-            answerChoices = currentQuizQuestion.answers
-            correctAnswers.append(currentQuizQuestion.cAns[0].text)
-            print("Correct answers array \(correctAnswers)")
+    func setQuestion() async {
+        await fetchQuestion(at: self.questionIndex, questionCategory: self.questionCategory)
+        DispatchQueue.main.async {
+            self.answerSelected = false
+            self.progress = CGFloat(Double(self.index + 1) / Double(self.length) * 350)
         }
+    
+
+        
+//        if questionIndex < length {
+//            let currentQuizQuestion = quiz[index]
+//            print(currentQuizQuestion.description)
+//            question = currentQuizQuestion.formattedQuestion
+//            answerChoices = currentQuizQuestion.answers1
+//            correctAnswers.append(currentQuizQuestion.cAns[0].text)
+//            print("Correct answers array \(correctAnswers)")
+//        }
     }
     
     func selectedAnswer(answer: Answer){
