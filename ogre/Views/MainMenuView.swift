@@ -31,7 +31,7 @@ struct MainMenuView: View {
     
     //variables for handling premium
     @State private var tokens: Int = 0
-    @State private var isPremiumEnabled: Bool = false
+    @State var isPremiumEnabled: Bool = false
     @State private var showPremiumAlert: Bool = false
     //
     
@@ -110,7 +110,12 @@ struct MainMenuView: View {
                             }
                             
                         } else if selectedTab == Tab.book {
-                            StudyView()
+                            if isPremiumEnabled {
+                                StudyView()
+                            }else{
+                                PremiumLockedView()
+                            }
+                            
                         }
                         else if selectedTab == Tab.gearshape {
                             VStack{
@@ -127,13 +132,16 @@ struct MainMenuView: View {
                                                 Text("Premium")
                                             }
                                             .onChange(of: isPremiumEnabled) { newValue in
-                                                if newValue && tokens < 150 {
+                                                if newValue && tokens < 30 {
                                                     isPremiumEnabled = false
                                                     showPremiumAlert = true
                                                 }
+                                                else{
+                                                    UserDataManager.setPremiumStatus(status: newValue)
+                                                }
                                             }
                                             .alert(isPresented: $showPremiumAlert) {
-                                                Alert(title: Text("Insufficient Tokens"), message: Text("You need \(150 - tokens) more tokens to enable Premium."), dismissButton: .default(Text("OK")))
+                                                Alert(title: Text("Insufficient Tokens"), message: Text("You need \(30 - tokens) more tokens to enable Premium."), dismissButton: .default(Text("OK")))
                                             }
                                             .onAppear {
                                                 UserDataManager.getTokens { result in
@@ -145,7 +153,12 @@ struct MainMenuView: View {
                         } else if selectedTab == Tab.person {
                             UserProfileView()
                         } else {
-                            LeaderboardView()
+                            if isPremiumEnabled{
+                                LeaderboardView()
+                            }
+                            else{
+                                PremiumLockedView()
+                            }
                         }
                         
                     }
@@ -174,6 +187,10 @@ struct MainMenuView: View {
         }
         .onAppear{
             checkForPermission()
+            UserDataManager.getPremiumStatus { status in
+                            isPremiumEnabled = status
+                        }
+            
         }
     }
     func checkForPermission(){
