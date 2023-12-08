@@ -43,6 +43,7 @@ struct WalkthroughScreen: View {
                         }
                         if currentPage==totalPages+1 {
                             buttonOpacity = 0
+                            AuthenticationViewModel().hasCompletedOnboarding = true
                         }
                     }
                 }, label: {

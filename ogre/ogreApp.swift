@@ -27,8 +27,11 @@ struct ogreApp: App {
         WindowGroup {
             NavigationStack {
                 AuthenticatedView {
-                    OnboardingView()
-                        .environmentObject(authViewModel)
+                    if authViewModel.hasCompletedOnboarding {
+                                        MainMenuView()
+                                    } else {
+                                        OnboardingView()
+                                    }
                 }
                 .environmentObject(authViewModel)
             }

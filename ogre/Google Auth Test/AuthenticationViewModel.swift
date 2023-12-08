@@ -35,8 +35,14 @@ class AuthenticationViewModel: ObservableObject {
   @Published var errorMessage: String = ""
   @Published var user: User?
   @Published var displayName: String = ""
+  @Published var hasCompletedOnboarding: Bool {
+           didSet {
+               UserDefaults.standard.set(hasCompletedOnboarding, forKey: "HasCompletedOnboarding")
+           }
+       }
 
   init() {
+    self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "HasCompletedOnboarding")
     registerAuthStateHandler()
 
     $flow
