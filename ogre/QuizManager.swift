@@ -71,7 +71,10 @@ class QuizManager: ObservableObject{
         
         Task.init{
             await fetchQuestionForDQOD(at: questionIndex, questionCategory: questionCategory)
-            questionIndex+=1
+            UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
+                self.questionIndex = result
+            }
+            
         }
 
     }

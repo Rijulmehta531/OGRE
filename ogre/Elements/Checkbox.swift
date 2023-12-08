@@ -62,6 +62,9 @@ struct Checkbox: View {
         .cornerRadius(10)
         .shadow(color: isSelected ? Color.blue : .gray, radius: 5, x: 0.5, y:0.5)
         .onTapGesture {
+            if !isAnswerSelected {
+                    isAnswerSelected.toggle()
+            }
             quizManager.answerSelected = true
             quizManager.selectedAnswer(answer: answer)
             quizManager.isShowingPopup = false

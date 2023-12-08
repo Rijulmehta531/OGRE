@@ -126,7 +126,7 @@ class UserDataManager {
                         writeUserData(userId: userId, element: "subjects", value: subjects)
                         let eligibleQR: [Int] = Array(0...872)
                         writeUserData(userId: userId, element: "eligibleQR", value: eligibleQR)
-                        let eligibleVR: [Int] = Array(0...461)
+                        let eligibleVR: [Int] = Array(0...460)
                         writeUserData(userId: userId, element: "eligibleVR", value: eligibleVR)
                     }
                 }

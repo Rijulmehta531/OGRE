@@ -51,7 +51,7 @@ struct PracticeQuestionView: View {
                                 
                             }
                             .frame(height: 150)
-                            
+                            ScrollView{
                                 if(!question.answers.isEmpty){
                                     ForEach(question.answers, id: \.id){
                                         answer in AnswerRow(answer: answer)
@@ -64,8 +64,8 @@ struct PracticeQuestionView: View {
                                             .environmentObject(quizManager)
                                     }
                                 }
-                            else if(question.type == "multiple_radio"){
-                                         AnswerRow(answer: stringToAnswer("Under Construction"))
+                                else if(question.type == "multiple_radio"){
+                                    AnswerRow(answer: stringToAnswer("Under Construction"))
                                         .environmentObject(quizManager)
                                 }
                                 
@@ -76,7 +76,7 @@ struct PracticeQuestionView: View {
                                             .border(Color.accentColor)
                                             .onChange(of: quizManager.shortAns) { _ in
                                                 quizManager.answerSelected = !quizManager.shortAns.isEmpty
-                                                    
+                                                
                                             }
                                     }
                                     else{
@@ -89,6 +89,7 @@ struct PracticeQuestionView: View {
                                     }
                                     
                                 }
+                            }
                         }
                     }
                     
