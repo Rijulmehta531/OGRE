@@ -1,6 +1,6 @@
 # OGRE
 
-Created during Rao Casturi's Fall 2023 Software Engineering Class by Aaron Grizzle, Brian Johnson, Sam Kumar, Rijul Mehta, and Guranggad Singh. 
+Created during Fall 2023 for Dr. Rao Casturi's Software Engineering Class by Aaron Grizzle, Brian Johnson, Sam Kumar, Rijul Mehta, and Guranggad Singh. 
 
 ## Overview
 
