@@ -32,6 +32,8 @@ class QuizManager: ObservableObject{
     
     //Variables to fetch individual questions
     @Published var question: QuestionObject?
+    
+
     @Published var questionIndex = 0
     @Published var questionCategory = "quantitative-reasoning"
   
@@ -62,10 +64,16 @@ class QuizManager: ObservableObject{
     
     
     init(){
+        UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
+            self.questionIndex = result
+            print("Question ID: \(self.questionIndex)")
+        }
+        
         Task.init{
             await fetchQuestionForDQOD(at: questionIndex, questionCategory: questionCategory)
             questionIndex+=1
         }
+
     }
     
     //Normal fetch question for practice and quiz mode
@@ -166,11 +174,11 @@ class QuizManager: ObservableObject{
                 //The question is added for the post quiz screen display.
                 
 //                self.correctAnswers.append(question.correct)
-                print("Fetched question at index \(index) for category \(questionCategory)")
+                print("Fetched question at index \(index) for category \(questionCategory) DQOD !!")
                 
             }
         } withCancel: { error in
-            print("Failed to fetch question at index \(index) for category \(questionCategory): \(error.localizedDescription)")
+            print("DQOD !! Failed to fetch question at index \(index) for category \(questionCategory): \(error.localizedDescription)")
         }
     }
 
@@ -223,6 +231,8 @@ class QuizManager: ObservableObject{
             self.isSubmitButtonPressed = false
             if answer.isCorrect{
                 self.score+=1
+                
+                UserDataManager.answeredQuestion(questionId: self.questionIndex, category: self.questionCategory, correct: true)
                 if self.question?.difficulty=="Easy"{
                     self.numTokens += 2
                     print((self.question?.difficulty ?? "nil") + String(self.numTokens))
@@ -245,7 +255,11 @@ class QuizManager: ObservableObject{
                 }
             }
             if self.index + 1 < self.length {
-                self.questionIndex += 1
+                UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
+                    self.questionIndex = result
+                    print("I AM INSIDE GOTONEXTQUESTION MF Question ID: \(self.questionIndex)")
+                }
+                
                 self.index+=1
                 self.setQuestion()
             } else {
@@ -260,6 +274,7 @@ class QuizManager: ObservableObject{
     func setQuestion() {
         print("setQuestion called with index \(questionIndex)")
         currentAnswer = nil
+
         Task{
             await fetchQuestion(at: self.questionIndex, questionCategory: self.questionCategory)
         }

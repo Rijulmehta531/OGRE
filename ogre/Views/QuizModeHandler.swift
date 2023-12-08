@@ -27,6 +27,10 @@ struct QuizModeHandler: View {
                         .navigationBarHidden(true)
                         .onAppear{
                             quizManager.length = 10
+                            UserDataManager.getEligibleQuestion(category: quizManager.questionCategory) { result in
+                                quizManager.questionIndex = result
+                                
+                            }
                             Task{await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
                             }}) {
                         PrimaryButton(text: "Next Quiz")
@@ -72,7 +76,13 @@ struct QuizModeHandler: View {
                         .navigationBarHidden(true)
                         .onAppear{
                             quizManager.length = 10
+                            UserDataManager.getEligibleQuestion(category: quizManager.questionCategory) { result in
+                                quizManager.questionIndex = result
+                                
+                            }
                             Task{await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
+                                
+                                print("First question fetched for \(quizManager.questionCategory) and Indes is \(quizManager.questionIndex)")
                             }}
                 }
                 else{
@@ -80,9 +90,16 @@ struct QuizModeHandler: View {
                         .environmentObject(quizManager)
                         .navigationBarHidden(true)
                         .onAppear{
-                            quizManager.length = 500 //replace with total number of questions
-                            Task{await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
+                            quizManager.length = 1300 //replace with total number of questions
+                            UserDataManager.getEligibleQuestion(category: quizManager.questionCategory) { result in
+                                quizManager.questionIndex = result
+                                
                             }
+                            Task{await quizManager.fetchQuestion(at:quizManager.questionIndex, questionCategory: quizManager.questionCategory)
+                                
+                                print("First question fetched for \(quizManager.questionCategory) and Indes is \(quizManager.questionIndex)")
+                            }
+                            
                         }
                 }
                 
