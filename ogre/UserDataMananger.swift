@@ -134,7 +134,7 @@ class UserDataManager {
         }
     }
     
-    static func getEligibleQuestions(category: String, completion: @escaping ([Int]) -> Void) {
+    static func getEligibleQuestion(category: String, completion: @escaping (Int) -> Void) {
         var element: String
         if category == "QR" {
             element = "eligibleQR"
@@ -146,8 +146,13 @@ class UserDataManager {
         }
         readUserData(userId: getUserId(), element: element) { snapshot in
             let questions = snapshot as? [Int] ?? []
-            completion(questions)
+            let questionId: Int = questions.randomElement() ?? 0
+            completion(questionId)
         }
+    }
+    
+    static func answeredQuestion(questionId: Int, correct: Bool) {
+        
     }
     
     static func getAnsweredIncorrectly(completion: @escaping ([Int]) -> Void) {
