@@ -253,6 +253,8 @@ class QuizManager: ObservableObject{
                     print((self.question?.difficulty ?? "nil") + String(self.numTokens))
                     
                 }
+            } else {
+                UserDataManager.answeredQuestion(questionId: self.questionIndex, category: self.questionCategory, correct: false)
             }
             if self.index + 1 < self.length {
                 UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in

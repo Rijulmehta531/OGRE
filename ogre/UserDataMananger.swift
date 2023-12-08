@@ -8,7 +8,7 @@
 import Firebase
 
 class UserDataManager {
-        
+    
     static func getUserId() -> String {
         return Auth.auth().currentUser?.uid ?? ""
     }
@@ -145,8 +145,8 @@ class UserDataManager {
             return
         }
         readUserData(userId: getUserId(), element: element) { snapshot in
-            let questions = snapshot as? [Int] ?? []
-            let questionId: Int = questions.randomElement() ?? 0
+            let questions = (snapshot as? [Int?])?.compactMap { $0 } ?? []
+            let questionId = questions.randomElement() ?? 0
             completion(questionId)
         }
     }
@@ -223,7 +223,6 @@ class UserDataManager {
                     
                     // Remove from answeredIncorrectly.
                     readUserData(userId: userId, element: "answeredIncorrectly") { snapshot in
-                        if snapshot is Error { return }
                         if let questions = snapshot as? [String: Int] {
                             let ref = Database.database().reference().child("users").child(userId).child("answeredIncorrectly")
                             for (key, value) in questions {
@@ -236,11 +235,10 @@ class UserDataManager {
                     
                     // Remove from eligible questions.
                     readUserData(userId: userId, element: catEligible) { snapshot in
-                        if snapshot is Error { return }
-                        if let questions = snapshot as? [Int] {
+                        if let questions = snapshot as? [Int?] {
                             let ref = Database.database().reference().child("users").child(userId).child(catEligible)
-                            for key in questions {
-                                if key == questionId {
+                            for num in questions {
+                                if let key = num, key == questionId {
                                     ref.child("\(key)").removeValue { _, _ in }
                                 }
                             }

@@ -170,13 +170,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8F0227592B13C4F4002D67E2 /* User Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "User Data";
-			sourceTree = "<group>";
-		};
 		8FB198A62ADB9797008695A0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,7 +282,6 @@
 				8FE15D132ADCAB8D00C11B36 /* Views */,
 				8FE15D282ADCB23300C11B36 /* Elements */,
 				8FF246322ADB84E9009B8952 /* Data */,
-				8F0227592B13C4F4002D67E2 /* User Data */,
 				8FB198A62ADB9797008695A0 /* Resources */,
 				8FF245E82ADB8111009B8952 /* Assets.xcassets */,
 				8FF245EA2ADB8111009B8952 /* Preview Content */,
