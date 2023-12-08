@@ -64,12 +64,16 @@ class QuizManager: ObservableObject{
     
     
     init(){
-        UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
-            self.questionIndex = result
-            print("Question ID: \(self.questionIndex)")
-        }
+//        UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
+//            self.questionIndex = result
+//            print("Question ID: \(self.questionIndex)")
+//        }
         
         Task.init{
+            UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
+                self.questionIndex = result
+                print("Question ID: \(self.questionIndex)")
+            }
             await fetchQuestionForDQOD(at: questionIndex, questionCategory: questionCategory)
             UserDataManager.getEligibleQuestion(category: self.questionCategory) { result in
                 self.questionIndex = result

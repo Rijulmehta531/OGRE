@@ -107,12 +107,7 @@ struct ScreenView: View {
                     })
                 }
                 Spacer()
-                //Skip Button
-                Button(action: {},label:{
-                    Text("Skip")
-                        .fontWeight(.semibold)
-                        .kerning(1.2)
-                })
+
             }
             .foregroundColor(tColor)
             .padding()
