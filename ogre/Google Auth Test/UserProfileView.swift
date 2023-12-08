@@ -15,6 +15,10 @@ struct UserProfileView: View {
     
     @State var navigateToFriendsView = false
     @State private var tokens: Int = 0
+    @State private var email: String = ""
+    @State private var membership: String = ""
+    @State private var difficulties: String = ""
+    @State private var subjects: String = ""
     
     private func deleteAccount() {
         Task {
@@ -52,7 +56,10 @@ struct UserProfileView: View {
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
                 Section("Email") {
-                    //        Text(viewModel.displayName)
+                    Text("\(email)")
+                        .onAppear {
+                            email = UserDataManager.getUserEmail()
+                        }
                 }
                 Section("Tokens"){
                     Text("Tokens: \(tokens)")
@@ -62,16 +69,71 @@ struct UserProfileView: View {
                             }
                         }
                 }
-                    
-                    Section("Friends"){
-                        NavigationLink(destination: FriendsView()) {
-                            HStack {
-                                Spacer()
-                                Text("Friends")
-                                Spacer()
+                Section("Membership"){
+                    Text("Membership: \(membership)")
+                        .onAppear {
+                            UserDataManager.getPremiumStatus() { premium in
+                                if premium {
+                                    membership = "Premium"
+                                } else {
+                                    membership = "Standard"
+                                }
                             }
                         }
+                }
+                
+                Section(){
+                    NavigationLink(destination: FriendsView()) {
+                        HStack {
+                            Spacer()
+                            Text("Friends")
+                            Spacer()
+                        }
                     }
+                }
+                
+                Section(){
+                    Text("Percent of attempted questions which you answered correctly")
+                    Text("\(difficulties)")
+                        .onAppear {
+                            UserDataManager.readUserData(userId: UserDataManager.getUserId(), element: "difficulties") { data in
+                                if let diffs = data as? [String: [String: Int]] {
+                                    var result: [String] = []
+                                    for (name, values) in diffs {
+                                        if let correct = values["answeredCorrectly"], let total = values["attempted"], total != 0 {
+                                            let percentage = Double(correct) / Double(total) * 100
+                                            result.append("\(name): \(String(format: "%.0f", percentage))%")
+                                        }
+                                    }
+                                    let sortedResult = result.sorted()
+                                    DispatchQueue.main.async {
+                                        self.difficulties = sortedResult.joined(separator: "\n")
+                                    }
+                                }
+                            }
+                        }
+                }
+                
+                Section("Subjects"){
+                    Text("\(subjects)")
+                        .onAppear {
+                            UserDataManager.readUserData(userId: UserDataManager.getUserId(), element: "subjects") { data in
+                                if let diffs = data as? [String: [String: Int]] {
+                                    var result: [String] = []
+                                    for (name, values) in diffs {
+                                        if let correct = values["answeredCorrectly"], let total = values["attempted"], total != 0 {
+                                            let percentage = Double(correct) / Double(total) * 100
+                                            result.append("\(name): \(String(format: "%.0f", percentage))%")
+                                        }
+                                    }
+                                    let sortedResult = result.sorted()
+                                    DispatchQueue.main.async {
+                                        self.subjects = sortedResult.joined(separator: "\n")
+                                    }
+                                }
+                            }
+                        }
+                }
                     
                     Section {
                         Button(role: .cancel, action: signOut) {

@@ -13,6 +13,10 @@ class UserDataManager {
         return Auth.auth().currentUser?.uid ?? ""
     }
     
+    static func getUserEmail() -> String {
+        return Auth.auth().currentUser?.email ?? ""
+    }
+    
     static func readUserData(userId: String, element: String, completion: @escaping (Any?) -> Void) {
         guard !userId.isEmpty, !element.isEmpty else {
             print("Error: userId and elementName must not be empty.")
