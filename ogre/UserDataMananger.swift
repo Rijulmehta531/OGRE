@@ -284,6 +284,55 @@ class UserDataManager {
             }
         }
     }
+    static func getLeaderboard(completion: @escaping ([String]?) -> Void) {
+        var leaderboard: [String] = []
+        var usersAndTokens: [String: Int] = [:]
+        var email: String = ""
+        if let currentUser = Auth.auth().currentUser {
+            email = currentUser.email ?? ""
+        }
+        readUserData(userId: getUserId(), element: "tokens") { snapshot in
+            if let tokens = snapshot as? Int {
+                usersAndTokens[email] = tokens
+                print(email)
+                print(tokens)
+                readUserData(userId: getUserId(), element: "friends") { snapshot in
+                    if snapshot is Error {
+                        return
+                    }
+                    if let friends = snapshot as? [String: String] {
+                        var friendIds: [String] = []
+                        for (_, friendId) in friends {
+                            friendIds.append(friendId)
+                        }
+                        let ref = Database.database().reference().child("all-users")
+                        ref.observeSingleEvent(of: .value) { snapshot, _ in
+                            if let allUsers = snapshot.value as? [String: String] {
+                                for (key, value) in allUsers {
+                                    if friendIds.contains(key) {
+                                        let ref = Database.database().reference().child("users").child(key).child("tokens")
+                                        ref.observeSingleEvent(of: .value) { snapshot, _ in
+                                            if let tokens = snapshot.value as? Int {
+                                                usersAndTokens[value] = tokens
+                                                print(value)
+                                                print(tokens)
+                                            }
+                                        }
+                                    }
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    print(usersAndTokens)
+                                    let sortedArray = usersAndTokens.sorted { $0.value > $1.value }
+                                    leaderboard = sortedArray.map { "\($0.key): \($0.value)" }
+                                    completion(leaderboard)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     static func addTokens(numTokens: Int) {
         readUserData(userId: getUserId(), element: "tokens") { snapshot in
