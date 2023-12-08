@@ -57,9 +57,9 @@ struct AuthenticatedView<Content, Unauthenticated>: View where Content: View, Un
             VStack {
                 content()
 //                Text("You're logged in as \(viewModel.displayName).")
-                Button("Tap here to view your profile") {
-                    presentingProfileScreen.toggle()
-                }
+//                Button("Tap here to view your profile") {
+//                    presentingProfileScreen.toggle()
+//                }
             }
             
             // Initialize user data.
