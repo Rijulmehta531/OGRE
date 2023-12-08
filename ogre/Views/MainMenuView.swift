@@ -25,6 +25,7 @@ struct MainMenuView: View {
     
     @StateObject var quizManager = QuizManager()
     @State var streakAlert = QOTDView(closePopover: {})
+    @State var streakCount = 0
     //@EnvironmentObject var quizManager: QuizManager
     //@EnvironmentObject var viewModel: AuthenticationViewModel
     @State var isSoundEnabled = true
@@ -178,7 +179,7 @@ struct MainMenuView: View {
         .alert(isPresented: $showQOTDAlert) {
             Alert(
                 title: Text("Streak"),
-                message: Text("You have a \(streakAlert.streakCount) day streak! See you tomorrow!"),
+                message: Text("You have a \(streakCount) day streak! See you tomorrow!"),
                 primaryButton: .default(Text("OK")) {
                     
                 },
@@ -246,11 +247,11 @@ struct MainMenuView: View {
             }
         }
     private func handleClick() {
-        UserDataManager.getDailyStreak { streak in
-            streakAlert.streakCount = streak
-        }
             if isButtonDisabled() {
-                showQOTDAlert = true
+                UserDataManager.getDailyStreak { streak in
+                    streakCount = streak
+                    showQOTDAlert = true
+                }
             } else {
                 isQOTDPopoverPresented = true
                 saveButtonClickTimestamp()

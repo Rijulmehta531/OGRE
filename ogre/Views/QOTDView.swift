@@ -12,12 +12,12 @@ struct QOTDView: View {
     @State private var lastClickTimestamp: Date?
     @State private var showStreakAlert = false
     var closePopover: () -> Void
-    @State public var streakCount: Int = 1
+    @State public var streakCount: Int = 0
     @State private var lastClickedDate: Date? = UserDefaults.standard.object(forKey: "lastClickedDate") as? Date
     
     init(closePopover: @escaping () -> Void) {
         // Initialize streakCount from UserDefaults
-        _streakCount = State(initialValue: UserDefaults.standard.integer(forKey: "streakCount")+1)
+//        _streakCount = State(initialValue: UserDefaults.standard.integer(forKey: "streakCount")+1)
         self.closePopover = closePopover
     }
     func stringToAnswer(_ string: String) -> Answer {
@@ -186,6 +186,8 @@ struct QOTDView: View {
         
         UserDataManager.getDailyStreak { streak in
             streakCount = streak + 1
+            
+            UserDataManager.addDailyStreak()
             
             // Move the alert showing code here
             showStreakAlert = true

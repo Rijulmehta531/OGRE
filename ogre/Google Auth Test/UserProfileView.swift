@@ -15,6 +15,7 @@ struct UserProfileView: View {
     
     @State var navigateToFriendsView = false
     @State private var tokens: Int = 0
+    @State private var streak: Int = 0
     @State private var email: String = ""
     @State private var membership: String = ""
     @State private var difficulties: String = ""
@@ -61,6 +62,17 @@ struct UserProfileView: View {
                             email = UserDataManager.getUserEmail()
                         }
                 }
+                
+                Section(){
+                    NavigationLink(destination: FriendsView()) {
+                        HStack {
+                            Spacer()
+                            Text("Friends")
+                            Spacer()
+                        }
+                    }
+                }
+                
                 Section("Tokens"){
                     Text("Tokens: \(tokens)")
                         .onAppear {
@@ -81,15 +93,13 @@ struct UserProfileView: View {
                             }
                         }
                 }
-                
-                Section(){
-                    NavigationLink(destination: FriendsView()) {
-                        HStack {
-                            Spacer()
-                            Text("Friends")
-                            Spacer()
+                Section("Daily Question Streak"){
+                    Text("Streak: \(streak)")
+                        .onAppear {
+                            UserDataManager.getDailyStreak() { result in
+                                streak = result
+                            }
                         }
-                    }
                 }
                 
                 Section(){
