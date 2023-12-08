@@ -163,7 +163,7 @@ class UserDataManager {
             let subjects = questionData["subject"] as? [String] ?? []
             
             // Get the incorrectly answered questions.
-            let ref = Database.database().reference().child(userId).child("answeredIncorrectly")
+            let ref = Database.database().reference().child("users").child(userId).child("answeredIncorrectly")
             ref.observeSingleEvent(of: .value) { snapshot, _ in
                 let answeredIncorrectly = snapshot.value as? [String: Int] ?? [:]
                 
@@ -194,7 +194,6 @@ class UserDataManager {
                 }
                 
                 // Update stats if not yet answered incorrectly.
-                print(answeredIncorrectly)
                 let previouslyIncorrect = answeredIncorrectly.contains { $0.value == questionId }
                 if !previouslyIncorrect {
                     readUserData(userId: userId, element: "difficulties/\(catDiff)/attempted") { attempted in
@@ -223,7 +222,7 @@ class UserDataManager {
                     }
                     
                     // Remove from answeredIncorrectly.
-                    readUserData(userId: getUserId(), element: "answeredIncorrectly") { snapshot in
+                    readUserData(userId: userId, element: "answeredIncorrectly") { snapshot in
                         if snapshot is Error { return }
                         if let questions = snapshot as? [String: Int] {
                             let ref = Database.database().reference().child("users").child(userId).child("answeredIncorrectly")
@@ -236,13 +235,13 @@ class UserDataManager {
                     }
                     
                     // Remove from eligible questions.
-                    readUserData(userId: getUserId(), element: "\(catEligible)") { snapshot in
+                    readUserData(userId: userId, element: catEligible) { snapshot in
                         if snapshot is Error { return }
-                        if let questions = snapshot as? [String: Int] {
-                            let ref = Database.database().reference().child("users").child(userId).child("\(catEligible)")
-                            for (key, value) in questions {
-                                if value == questionId {
-                                    ref.child(key).removeValue { _, _ in }
+                        if let questions = snapshot as? [Int] {
+                            let ref = Database.database().reference().child("users").child(userId).child(catEligible)
+                            for key in questions {
+                                if key == questionId {
+                                    ref.child("\(key)").removeValue { _, _ in }
                                 }
                             }
                         }
@@ -408,41 +407,59 @@ class UserDataManager {
         }
     }
     
-    static func getLeaderboard(completion: @escaping ([String]?) -> Void) {
-        var leaderboard: [String] = []
+    static func getLeaderboard(completion: @escaping ([(String, Int, Int)]?) -> Void) {
+        var leaderboard: [(String, Int, Int)] = []
         var usersAndTokens: [String: Int] = [:]
         var email: String = ""
+        
         if let currentUser = Auth.auth().currentUser {
             email = currentUser.email ?? ""
         }
+        
         readUserData(userId: getUserId(), element: "tokens") { snapshot in
             if let tokens = snapshot as? Int {
                 usersAndTokens[email] = tokens
+                print(email)
+                print(tokens)
+                
                 readUserData(userId: getUserId(), element: "friends") { snapshot in
                     if snapshot is Error {
                         return
                     }
+                    
                     if let friends = snapshot as? [String: String] {
                         var friendIds: [String] = []
+                        
                         for (_, friendId) in friends {
                             friendIds.append(friendId)
                         }
+                        
                         let ref = Database.database().reference().child("all-users")
+                        
                         ref.observeSingleEvent(of: .value) { snapshot, _ in
                             if let allUsers = snapshot.value as? [String: String] {
                                 for (key, value) in allUsers {
                                     if friendIds.contains(key) {
                                         let ref = Database.database().reference().child("users").child(key).child("tokens")
+                                        
                                         ref.observeSingleEvent(of: .value) { snapshot, _ in
                                             if let tokens = snapshot.value as? Int {
                                                 usersAndTokens[value] = tokens
+                                                print(value)
+                                                print(tokens)
                                             }
                                         }
                                     }
                                 }
+                                
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     let sortedArray = usersAndTokens.sorted { $0.value > $1.value }
-                                    leaderboard = sortedArray.map { "\($0.key): \($0.value)" }
+                                    
+                                    leaderboard = sortedArray.enumerated().map { (index, item) in
+                                        let place = index + 1
+                                        return (item.key, item.value, place)
+                                    }
+                                    
                                     completion(leaderboard)
                                 }
                             }
