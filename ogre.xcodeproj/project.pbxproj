@@ -10,7 +10,6 @@
 		221198702AF122CE005FDCA7 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211986F2AF122CE005FDCA7 /* TimerView.swift */; };
 		221198722AF21415005FDCA7 /* PracticeQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221198712AF21415005FDCA7 /* PracticeQuestionView.swift */; };
 		221198742AF22E06005FDCA7 /* PostQuizScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221198732AF22E06005FDCA7 /* PostQuizScreen.swift */; };
-		8B1B1B142B22D9AF00D9B4BD /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1B1B132B22D9AF00D9B4BD /* LeaderboardView.swift */; };
 		8BAD82102B22CB4F00D47CBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BAD820F2B22CB4F00D47CBC /* GoogleService-Info.plist */; };
 		8F02275D2B13C58D002D67E2 /* TestUserDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F02275C2B13C58D002D67E2 /* TestUserDataView.swift */; };
 		8FB198AE2ADC015E008695A0 /* CategorySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB198AD2ADC015E008695A0 /* CategorySelector.swift */; };
@@ -75,6 +74,7 @@
 		BC9688272B130CEF0068AA0A /* QOTDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9688262B130CEF0068AA0A /* QOTDView.swift */; };
 		BCA337662B0C8FF50011C902 /* MultipleRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA337652B0C8FF50011C902 /* MultipleRadio.swift */; };
 		BCBC585C2B133C3700FC5406 /* UserDataMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC585B2B133C3700FC5406 /* UserDataMananger.swift */; };
+		BCD183C02B22DF6200820C77 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD183BF2B22DF6200820C77 /* LeaderboardView.swift */; };
 		BCD1D4022B031B3900238C1A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD1D4012B031B3900238C1A /* WebView.swift */; };
 		BCD1D4042B031BDB00238C1A /* QuestionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD1D4032B031BDB00238C1A /* QuestionObject.swift */; };
 		BCDF0BD12B1318FD0089AD44 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDF0BD02B1318FD0089AD44 /* StudyView.swift */; };
@@ -85,7 +85,6 @@
 		2211986F2AF122CE005FDCA7 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		221198712AF21415005FDCA7 /* PracticeQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeQuestionView.swift; sourceTree = "<group>"; };
 		221198732AF22E06005FDCA7 /* PostQuizScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuizScreen.swift; sourceTree = "<group>"; };
-		8B1B1B132B22D9AF00D9B4BD /* LeaderboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardView.swift; path = ../../../../Downloads/LeaderboardView.swift; sourceTree = "<group>"; };
 		8BAD820F2B22CB4F00D47CBC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F02275C2B13C58D002D67E2 /* TestUserDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserDataView.swift; sourceTree = "<group>"; };
 		8FB198A92ADB9820008695A0 /* Optima.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Optima.ttc; sourceTree = "<group>"; };
@@ -141,6 +140,7 @@
 		BC9688262B130CEF0068AA0A /* QOTDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QOTDView.swift; sourceTree = "<group>"; };
 		BCA337652B0C8FF50011C902 /* MultipleRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleRadio.swift; sourceTree = "<group>"; };
 		BCBC585B2B133C3700FC5406 /* UserDataMananger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataMananger.swift; sourceTree = "<group>"; };
+		BCD183BF2B22DF6200820C77 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		BCD1D4012B031B3900238C1A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		BCD1D4032B031BDB00238C1A /* QuestionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionObject.swift; sourceTree = "<group>"; };
 		BCDF0BD02B1318FD0089AD44 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -225,8 +225,8 @@
 				BCD1D4012B031B3900238C1A /* WebView.swift */,
 				BC5233582B12D64800311B59 /* FriendsView.swift */,
 				BCDF0BD02B1318FD0089AD44 /* StudyView.swift */,
-				8B1B1B132B22D9AF00D9B4BD /* LeaderboardView.swift */,
 				BCE1F7D52B22D0B3005C0EF2 /* PremiumLockedView.swift */,
+				BCD183BF2B22DF6200820C77 /* LeaderboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,7 +433,7 @@
 				8FE15D2E2ADCBD8100C11B36 /* InitiQuesView.swift in Sources */,
 				8FF2462E2ADB84C8009B8952 /* ProfileView.swift in Sources */,
 				BC9688242B130C5E0068AA0A /* QuantitativeReasoning_CS.swift in Sources */,
-				8B1B1B142B22D9AF00D9B4BD /* LeaderboardView.swift in Sources */,
+				BCD183C02B22DF6200820C77 /* LeaderboardView.swift in Sources */,
 				8FF246342ADB8503009B8952 /* PagingSlider.swift in Sources */,
 				BC9327C72B15481100CCA3FD /* PDFView.swift in Sources */,
 				8FF245E72ADB810F009B8952 /* MainMenuView.swift in Sources */,

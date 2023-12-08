@@ -24,15 +24,25 @@ struct FriendsView: View {
     var body: some View {
         ZStack {
             VStack{
+                Spacer()
                 Text("Add a friend to share progress!")
                     .font(.custom("Optima-Bold", size: 26, relativeTo: .title2))
                     .foregroundColor(Color.accentColor)
+                    .offset(y:100)
+                    .padding(10)
+                
+                Image("Friends")
+                    .resizable()
+                    .frame(width: 250,height: 250)
+                    .offset(y:50)
                 Spacer()
+                
                 TextField("Enter an email", text: $email)
                     .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                     .frame(width: 350)
                     .textCase(.lowercase)
+                    .padding(20)
             
                 Button{
                     //                addFriend()
