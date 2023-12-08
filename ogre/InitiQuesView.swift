@@ -89,6 +89,7 @@ struct FirstView: View {
                     .offset(y: -190)
                     Button(action: {
                         currentPage += 1
+                        selectedAnswer = ""
                     }) {
                         PrimaryButton(text: "Next")
                     }

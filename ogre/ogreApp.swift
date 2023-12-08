@@ -22,13 +22,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct ogreApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var authViewModel = AuthenticationViewModel()
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 AuthenticatedView {
-                } content: {
                     OnboardingView()
+                        .environmentObject(authViewModel)
                 }
+                .environmentObject(authViewModel)
             }
         }
     }

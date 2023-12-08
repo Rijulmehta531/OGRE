@@ -153,6 +153,7 @@ struct MainMenuView: View {
                             
                         } else if selectedTab == Tab.person {
                             UserProfileView()
+                                .environmentObject(AuthenticationViewModel())
                         } else {
                             if isPremiumEnabled{
                                 LeaderboardView()
