@@ -28,6 +28,13 @@ struct MainMenuView: View {
     //@EnvironmentObject var quizManager: QuizManager
     //@EnvironmentObject var viewModel: AuthenticationViewModel
     @State var isSoundEnabled = true
+    
+    //variables for handling premium
+    @State private var tokens: Int = 0
+    @State private var isPremiumEnabled: Bool = false
+    @State private var showPremiumAlert: Bool = false
+    //
+    
     @State private var lastClickTimestamp: Date?
     @State private var showQOTDAlert = false
     @State private var showStreakAlert = false
@@ -116,6 +123,23 @@ struct MainMenuView: View {
                                     .onReceive([self.isSoundEnabled].publisher.first()) { value in
                                         SoundManager.isSoundEnabled = value
                                     }
+                                    Toggle(isOn: $isPremiumEnabled) {
+                                                Text("Premium")
+                                            }
+                                            .onChange(of: isPremiumEnabled) { newValue in
+                                                if newValue && tokens < 150 {
+                                                    isPremiumEnabled = false
+                                                    showPremiumAlert = true
+                                                }
+                                            }
+                                            .alert(isPresented: $showPremiumAlert) {
+                                                Alert(title: Text("Insufficient Tokens"), message: Text("You need \(150 - tokens) more tokens to enable Premium."), dismissButton: .default(Text("OK")))
+                                            }
+                                            .onAppear {
+                                                UserDataManager.getTokens { result in
+                                                    tokens = result
+                                                }
+                                            }
                                 }}
                             
                         } else if selectedTab == Tab.person {
