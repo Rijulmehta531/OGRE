@@ -218,19 +218,9 @@ class QuizManager: ObservableObject{
             }
         }
     }
-
-    
     func goToNextQuestion(answer: Answer){
         
         DispatchQueue.main.async {
-//            if self.question?.type == "short_answer"{
-//                self.shortAns = ""
-//            }
-//            if self.question?.type == "long_answer"{
-//                self.longAns = ""
-//            }
-            
-            
             self.selectedAnswers.append([answer.text])
             
             

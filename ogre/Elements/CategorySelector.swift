@@ -40,13 +40,7 @@ struct CategorySelector: View {
                         nameDB: "quantitative-reasoning"
                     )
                     .environmentObject(quizManager)
-                    Category(
-                        categoryName: "Analytical Writing",
-                        categoryDescription: "Advanced writing profeciency",
-                        categoryIcon: "pencil",
-                        nameDB: "ABC"
-                    )
-                    .environmentObject(quizManager)
+                    
                 }
                 .scrollTargetLayout()
             }
