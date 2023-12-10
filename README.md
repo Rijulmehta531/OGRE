@@ -18,11 +18,10 @@ The OGRE app is an iOS app that aims to provide a free, accessible, and effectiv
 
 - Question of the day that adds to your token count if answered correctly.
 
-- **1,000+** questions from the GRE's three sections:
+- **1,000+** questions from the two of the GRE's three sections:
   <ol>
     <li>Quantitative Analysis</li>
     <li>Verbal Reasoning</li>
-    <li>Analytical Writing</li>
 
   </ol>
 
@@ -32,8 +31,6 @@ The OGRE app is an iOS app that aims to provide a free, accessible, and effectiv
   - Quiz/Study Mode
   - Timer
   - Study Pages
-
-- OGRE integrates an AI companion that provides feedback on the Analytical Writing sections
 
 - Interactive Community Functions
   - Community Uploads
